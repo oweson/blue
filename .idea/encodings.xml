@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/install.sql" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocCommon" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ocCommon/src/main/java/com" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocOperator" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ocOperator/src/main/resources/application.properties" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocPortal" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ocPortal/src/main/java/com" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocPortal/src/main/resources/app-servlet.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocPortal/src/main/resources/application.properties" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocPortal/src/main/resources/applicationContext.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocPortal/src/main/resources/jdbc.properties" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocPortal/src/main/resources/log4j.properties" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocPortal/src/main/resources/mybatis-config.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocPortal/src/main/resources/shiro.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocPortal/src/main/webapp/WEB-INF/ftl" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocPortal/src/main/webapp/WEB-INF/pages" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocPortal/src/main/webapp/WEB-INF/web.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocPortal/src/main/webapp/index.html" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocPortal/src/main/webapp/res" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocPortal/src/main/webapp/static" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocService" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ocService/src/main/java/com" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocService/src/main/resources/app-servlet.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocService/src/main/resources/application.properties" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocService/src/main/resources/applicationContext.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocService/src/main/resources/applicationContext.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocService/src/main/resources/jdbc.properties" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocService/src/main/resources/jdbc.properties" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocService/src/main/resources/log4j.properties" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocService/src/main/resources/log4j.properties" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocService/src/main/resources/mybatis-config.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocService/src/main/resources/mybatis-config.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocService/src/main/resources/shiro.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocService/src/test/java/com" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocService/src/test/java/com/online/college/core/auth/dao/BaseClass.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ocWechat" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/wiki" charset="GBK" />
+  </component>
+</project>

@@ -1,0 +1,45 @@
+<!--判断分页的总数是否大于1，大于1，分页的div包含进来-->
+<#if (page.pageTotalCount)?? && page.pageTotalCount gt 1>
+<div class="page-box clearfix">
+	<div class="page clearfix">
+		<div style="float:left;">
+			<!--隐藏区域id。搜索的时候也要带过去-->
+			<input type="hidden" id="_id_pageNum" name="pageNum" value="${page.pageNum}"/>
+			<!--判断是不是首页，不是首页就展示首页和上一页；
+			是首页上一页和第一页就不会展示了-->
+			<#if !page.firstPage>
+			<!--点击上一页和下一页js方法会被调用-->
+				<a class="page-next" href="javascript:void(0);" onclick="_queryPage('1')">首 页</a>
+				<a class="page-next" href="javascript:void(0);" onclick="_queryPage('${page.pageNum-1}')">上一页</a>
+			</#if>
+			<#list page.showNums as n>
+				<#if page.showDot && n_index == 6>
+					<span class="page-omit">...</span>
+				</#if>
+				<#if page.pageNum == n>
+				<a class="page-cur" href="javascript:void(0);" >${n}</a>
+				<#else>
+				<a class="page-num" href="javascript:void(0);" onclick="_queryPage('${n}');">${n}</a>
+				</#if>
+			</#list>
+			<#if !page.lastPage>
+			<a class="page-next" href="javascript:void(0);"  onclick="_queryPage('${page.pageNum+1}')">下一页</a> 
+			<a class="page-next" href="javascript:void(0);"  onclick="_queryPage('${page.pageTotalCount!}')">尾 页</a> 
+			</#if> 
+		</div>
+	</div>
+</div>
+</#if>
+<script type="text/javascript">
+	function _queryPage(page){
+		if(page != undefined){
+			$('#_id_pageNum').val(page);
+		}
+		var query = $('#queryPageForm').attr('queryPage');
+		if(query && Number(query) == 1){
+			queryPage(page);
+		}else{
+			$('#queryPageForm').submit();
+		}
+	}
+</script>

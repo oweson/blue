@@ -53,6 +53,7 @@
 										<th>学校</th>
 										<th>手机</th>
 										<th>状态</th>
+										<th>国际化</th>
 										<th>性别</th>
 										<th>权重</th>
 										<th>操作</th>
@@ -72,10 +73,17 @@
 											<#if item.status == 2>
 											可用
 											<#elseif item.status == 0>
-											禁用
+											禁用(不可用)
 											<#else>
 											未知
 											</#if>
+										</td>
+										<td>
+											<#if item.status ==2>use
+											<#elseif item.status ==0>
+											useless
+											<#else>
+										</#if>
 										</td>
 										<td>
 											<#if item.gender == 0>

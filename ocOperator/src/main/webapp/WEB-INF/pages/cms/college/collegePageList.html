@@ -9,17 +9,17 @@
         <!-- 引入资源文件 -->
         <#include "../../common/res.html" />
    </head>
-   
-   <body class=""> 
+
+   <body class="">
   	<!-- top 导航 -->
     <#include "../../common/header.html" />
-	
+
 	<!-- 菜单导航 -->
     <#include "../cms-nav.html" />
-    
+
     <div class="content">
         <div class="container-fluid">
-			
+
 			<form id="queryPageForm" class="mt-15"  method="POST" action="">
 				<div class="block span6">
 					<a class="block-heading f-14" data-toggle="collapse">网校管理</a>
@@ -43,18 +43,20 @@
 										<th>名称</th>
 										<th>编码</th>
 										<th>操作</th>
+										<th>name</th>
 									</tr>
 								</thead>
 								<tbody>
 									<#if (page.items)??>
 									<#list page.items as item>
-									<tr>
+									<tr class="success">
 										<td>${item.name!}</td>
 										<td>${item.code!}</td>
 										<td>
 											<a class="link-a" href="javascript:void(0)" onclick="toEdit(${item.id})">修改</a>
 											<a class="link-a" href="javascript:void(0)" onclick="doDelete(${item.id})">删除</a>
 										</td>
+										<td>${item.name!}</td>
 									</tr>
 									</#list>
 									</#if>
@@ -65,10 +67,10 @@
 					</div>
 				</div>
 			</form>
-			
+
     	</div>
 	</div>
-	
+
 	<!-- 弹出层 -start -->
 	<div class="modal" id="myModal" tabindex="-1" role="dialog"  aria-hidden="true">
 		<div class="modal_wapper">
@@ -80,16 +82,16 @@
 						</button>
 						<h4 class="modal-title" >网校信息</h4>
 					</div>
-					
+
 					<div class="modal-body">
 						<form role="form" id="myForm" method="post" action="${s.base}/college/doMerge.html">
 							<input type="hidden" name="id" value=""/>
 							<div class="form-group">
-								<label for="name">名称</label> 
+								<label for="name">名称</label>
 								<input type="text" class="form-control" name="name" id="name" placeholder="请输入名称">
 							</div>
 							<div class="form-group">
-								<label for="name">编码</label> 
+								<label for="name">编码</label>
 								<input type="text" class="form-control" name="code" id="code" placeholder="请输入编码">
 							</div>
 						</form>
@@ -97,7 +99,7 @@
 						<div id="_ocAlertTip" class="alert alert-success f-16" style="display: none;"></div>
 						<!-- tip提示-end -->
 					</div>
-					
+
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" onclick="doSave();">保存</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -107,8 +109,8 @@
 		</div>
 	</div>
 	<!-- 弹出层 -end -->
-	
-	<!-- 弹出层 alert 信息 -->  
+
+	<!-- 弹出层 alert 信息 -->
     <div class="modal" id="_ocDialogModal" tabindex="-1" aria-hidden="true">
 		<div class="modal_wapper small">
 			<div class="modal-dialog w-4" >
@@ -127,8 +129,8 @@
 			</div>
 		</div>
 	</div>
-  <!-- 弹出层 alert 信息 --> 
-	
+  <!-- 弹出层 alert 信息 -->
+
 	<script type="text/javascript">
 		function toEdit(id){
 			//$("#myForm").clear();
@@ -157,7 +159,7 @@
 				});
 			}
 		}
-		
+
 		//保存
 		function doSave(){
 			$('#myForm').ajaxSubmit({
@@ -168,7 +170,7 @@
 						$('#myModal').modal('hide');
 						<!--提交成功刷新页面-->
 						_queryPage();
-						
+
 					} else {
 						Modal.tipFailure(resp.message);
 						<!--参数有误，失败提示-->
@@ -178,12 +180,12 @@
 					Modal.tipFailure('保存失败');
                     //alert(arguments[0].responseText);
                 }
-			});			
+			});
 		}
-		
-		//删除 
+
+		//删除
 		function doDelete(id){
-			Modal.confirm('确定删除?',function(){
+			Modal.confirm('你真的确定删除?',function(){
 				$.ajax({
 					url:'${s.base}/college/deleteLogic.html',
 				    type:'POST',
@@ -192,17 +194,18 @@
 				    success:function(resp){
 				    	var errcode = resp.errcode;
 				    	if(errcode == 0){
+				    	    <!--hello-->
 				    		/* Modal.alert('删除成功!',function(){
 				    			window.location.reload();//刷新
 				    		}); */
 				    		window.location.reload();//刷新
 				    	}
-				    } 
+				    }
 				});
 			});
 		}
-		
+
 	</script>
-	
+
   </body>
 </html>

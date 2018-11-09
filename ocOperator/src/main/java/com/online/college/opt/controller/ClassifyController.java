@@ -49,7 +49,7 @@ public class ClassifyController {
         mv.addObject("curNav", "classify");
         Map<String, ConstsClassifyVO> classifyMap = portalBusiness.queryAllClassifyMap();
 
-        /**所有一级分类*/
+        /**取出所有一级分类*/
         List<ConstsClassifyVO> classifysList = new ArrayList<ConstsClassifyVO>();
         for (ConstsClassifyVO vo : classifyMap.values()) {
             classifysList.add(vo);
@@ -59,10 +59,11 @@ public class ClassifyController {
 
         List<ConstsClassify> subClassifys = new ArrayList<ConstsClassify>();
         for (ConstsClassifyVO vo : classifyMap.values()) {
-            /**全部放进来*/
+            /**取出二级分类全部放进来*/
             subClassifys.addAll(vo.getSubClassifyList());
         }
-        mv.addObject("subClassifys", subClassifys);//所有二级分类
+        /**所有二级分类*/
+        mv.addObject("subClassifys", subClassifys);
 
         return mv;
     }
@@ -70,6 +71,7 @@ public class ClassifyController {
     /**
      * 3 分类信息的修改
      */
+    //todo 设了bug 190
     @RequestMapping(value = "/doMerge")
     @ResponseBody
     public String doMerge(ConstsClassify entity) {

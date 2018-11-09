@@ -10,7 +10,8 @@ import java.util.List;
 public class TailPage<E> extends AbstractPage<E> {
 	
     protected int showPage = 10;
-    /**显示10个页码*/
+    /**显示10个页码；
+	 * 1 2 3 4 5 6 7 8 9 10 */
 	protected List<Integer> showNums = new ArrayList<Integer>();
 	protected boolean showDot = true;
 	public TailPage() {}

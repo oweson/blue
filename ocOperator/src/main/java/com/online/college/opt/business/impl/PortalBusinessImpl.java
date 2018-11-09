@@ -59,14 +59,17 @@ public class PortalBusinessImpl implements IPortalBusiness {
         while (it.hasNext()) {
             ConstsClassify c = it.next();
             if ("0".equals(c.getParentCode())) {
-                /**一级分类*/
+                /**code为0说明就是一级分类*/
                 ConstsClassifyVO vo = new ConstsClassifyVO();
                 /**属性拷贝*/
                 BeanUtils.copyProperties(c, vo);
-                /**k,v的方法存储父级分类*/
+                /**k,v的方法存储父级分类;
+                 * be:后端；
+                 * fe：前端；key就是be,fe......子分类的parentCode对应
+                 * 子分类：*/
                 resultMap.put(vo.getCode(), vo);
             } else {
-                /**二级分类*/
+                /**二级分类，子分类*/
                 if (null != resultMap.get(c.getParentCode())) {
                     /**添加到子分类中;
                      * b把二级分类添加到一级分类的下面

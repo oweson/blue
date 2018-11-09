@@ -14,6 +14,7 @@ import java.util.Arrays;
  */
 @Controller
 public class TestHot {
+    //todo 批量的别名配置
     @RequestMapping("/hot")
     @ResponseBody
     public Object testHot(){

@@ -2,6 +2,7 @@ package com.online.college.portal.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.qiniu.util.Auth;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -69,6 +70,22 @@ public class AuthController {
             authUserService.createSelectivity(authUser);
             return JsonView.render(0);
         }
+    }
+
+    public String register(AuthUser authUser, String code, HttpServletRequest request) {
+        if (code != null && code.equalsIgnoreCase(SessionContext.getIdentifyCode(request))) {
+            return JsonView.render(2);
+        }
+//判断验证码
+        AuthUser byUsername = authUserService.getByUsername(authUser.getNickname());
+        if (byUsername != null) {
+            return JsonView.render(1);
+        } else {
+            authUser.setPassword(EncryptUtil.encodedByMD5(authUser.getPassword()));
+            authUserService.createSelectivity(authUser);
+            return JsonView.render(0);
+        }
+
     }
 
     /**

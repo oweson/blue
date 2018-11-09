@@ -37,8 +37,9 @@ public interface AuthUserDao  {
 	public Integer getTotalItemsCount(AuthUser queryEntity);
 
 	/**
-	*分页获取
+	*分页获取,param1和param2没有paramtype就用param1取出值
 	**/
+	//todo
 	public List<AuthUser> queryPage(AuthUser queryEntity, TailPage<AuthUser> page);
 
 	/**

@@ -19,7 +19,7 @@
 		
 		
 		<!--  1 默认的注解映射的支持,不是显示的通过注解扫描的
-		 controller,service都会扫描，？？？？？？？-->
+		 controller,service都会扫描，是的-->
 		<context:annotation-config />
 		<context:component-scan base-package="com.online.college"/>  
     	
@@ -76,7 +76,8 @@
 		</bean>
 		
 				
-		<!--  6 配置事务管理器 -->
+		<!--  6 配置事务管理器，service做事务的管理和aop的拦截，两个操作，
+		一个不行就回滚；事务的传播机制？？？ -->
 		<bean id="transactionManager"
 			class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 			<property name="dataSource" ref="dataSource" />

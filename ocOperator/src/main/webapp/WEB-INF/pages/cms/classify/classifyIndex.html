@@ -181,7 +181,8 @@
 				Modal.show('myModal');
 				$('#code').removeAttr('disabled');
 			}else{
-				$('#code').attr('disabled','disabled');
+			    <!--不应该删除注释掉了-->
+				//$('#code').attr('disabled','disabled');
 				$.ajax({
 					url:'${s.base}/classify/getById.html',
 				    type:'POST',
@@ -220,7 +221,7 @@
 		
 		//删除 
 		function doDelete(id){
-			Modal.confirm('确定删除?',function(){
+			Modal.confirm('你.....你....确定删除?',function(){
 				$.ajax({
 					url:'${s.base}/classify/deleteLogic.html',
 				    type:'POST',

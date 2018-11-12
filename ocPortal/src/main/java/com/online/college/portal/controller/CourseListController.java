@@ -25,82 +25,91 @@ import com.online.college.portal.vo.ConstsClassifyVO;
 @Controller
 @RequestMapping("/course")
 public class CourseListController {
-	
-	@Autowired
-	private IConstsClassifyService constsClassifyService;
-	
-	@Autowired
-	private IPortalBusiness portalBusiness;
-	
-	@Autowired
-	private ICourseService courseService;
-	
-	/**
-	 * 课程分类页
-	 * @param c 分类code
-	 * @param sort 排序
-	 * @param page 分页
-	 */
-	@RequestMapping("/list")
-	public ModelAndView list(String c, String sort, TailPage<Course> page){
-		ModelAndView mv = new ModelAndView("list");
-		String curCode = "-1";//当前方向code
-		String curSubCode = "-2";//当前分类code
-		
-		//加载所有课程分类
-		Map<String,ConstsClassifyVO> classifyMap = portalBusiness.queryAllClassifyMap();
-		//所有一级分类
-		List<ConstsClassifyVO> classifysList = new ArrayList<ConstsClassifyVO>();
-		for(ConstsClassifyVO vo : classifyMap.values()){
-			classifysList.add(vo);
-		}
-		mv.addObject("classifys", classifysList);
-				
-		//当前分类
-		ConstsClassify curClassify = constsClassifyService.getByCode(c);
-		
-		if(null == curClassify){//没有此分类，加载所有二级分类
-			List<ConstsClassify> subClassifys = new ArrayList<ConstsClassify>();
-			for(ConstsClassifyVO vo : classifyMap.values()){
-				subClassifys.addAll(vo.getSubClassifyList());
-			}
-			mv.addObject("subClassifys", subClassifys);
-		}else{
-			if(!"0".endsWith(curClassify.getParentCode())){//当前是二级分类
-				curSubCode = curClassify.getCode();
-				curCode = curClassify.getParentCode();
-				mv.addObject("subClassifys", classifyMap.get(curClassify.getParentCode()).getSubClassifyList());//此分类平级的二级分类
-			}else{//当前是一级分类
-				curCode = curClassify.getCode();
-				mv.addObject("subClassifys", classifyMap.get(curClassify.getCode()).getSubClassifyList());//此分类下的二级分类
-			}
-		}
-		mv.addObject("curCode", curCode);
-		mv.addObject("curSubCode", curSubCode);
-		
-		//分页排序数据
-		//分页的分类参数
-		Course queryEntity = new Course();
-		if(!"-1".equals(curCode)){
-			queryEntity.setClassify(curCode);
-		}
-		if(!"-2".equals(curSubCode)){
-			queryEntity.setSubClassify(curSubCode);
-		}
-		
-		//排序参数
-		if("pop".equals(sort)){//最热
-			page.descSortField("studyCount");
-		}else{
-			sort = "last";
-			page.descSortField("id");
-		}
-		mv.addObject("sort", sort);
-		
-		//分页参数
-		queryEntity.setOnsale(CourseEnum.ONSALE.value());
-		page = this.courseService.queryPage(queryEntity, page);
-		mv.addObject("page", page);
-		return mv;
-	}
+
+    @Autowired
+    private IConstsClassifyService constsClassifyService;
+
+    @Autowired
+    private IPortalBusiness portalBusiness;
+
+    @Autowired
+    private ICourseService courseService;
+
+    /**
+     * 1 课程分类页
+     *
+     * @param c    分类code
+     * @param sort 排序
+     * @param page 分页
+     */
+    @RequestMapping("/list")
+    public ModelAndView list(String c, String sort, TailPage<Course> page) {
+        ModelAndView mv = new ModelAndView("list");
+        String curCode = "-1";//当前方向code  查询全部一级
+        String curSubCode = "-2";//当前分类code  查询所有，list页面默认值-1，-2
+
+        /**加载所有课程分类*/
+        Map<String, ConstsClassifyVO> classifyMap = portalBusiness.queryAllClassifyMap();
+        /**所有一级分类*/
+        List<ConstsClassifyVO> classifysList = new ArrayList<ConstsClassifyVO>();
+        for (ConstsClassifyVO vo : classifyMap.values()) {
+            classifysList.add(vo);
+        }
+        mv.addObject("classifys", classifysList);
+
+        /**当前分类*/
+        ConstsClassify curClassify = constsClassifyService.getByCode(c);
+
+        if (null == curClassify) {
+            /**没有此分类，加载所有二级分类*/
+            List<ConstsClassify> subClassifys = new ArrayList<ConstsClassify>();
+            for (ConstsClassifyVO vo : classifyMap.values()) {
+                subClassifys.addAll(vo.getSubClassifyList());
+            }
+            mv.addObject("subClassifys", subClassifys);
+        } else {
+            /**当前是二级分类*/
+            if (!"0".endsWith(curClassify.getParentCode())) {
+                curSubCode = curClassify.getCode();
+                curCode = curClassify.getParentCode();
+                /**此分类平级的二级分类*/
+                mv.addObject("subClassifys", classifyMap.get(curClassify.getParentCode()).getSubClassifyList());
+            } else {/**当前是一级分类*/
+                curCode = curClassify.getCode();
+                /**此分类下的二级分类加载*/
+                mv.addObject("subClassifys", classifyMap.get(curClassify.getCode()).getSubClassifyList());
+            }
+        }
+        /**一机分类*/
+        mv.addObject("curCode", curCode);
+        /**二机分类*/
+        mv.addObject("curSubCode", curSubCode);
+
+        //分页排序数据
+        //分页的分类参数
+        Course queryEntity = new Course();
+        if (!"-1".equals(curCode)) {
+            //全部一级
+            queryEntity.setClassify(curCode);
+        }
+        if (!"-2".equals(curSubCode)) {
+            //全部二级
+            queryEntity.setSubClassify(curSubCode);
+        }
+
+        //排序参数
+        if ("pop".equals(sort)) {//最热
+            page.descSortField("studyCount");
+        } else {
+            sort = "last";
+            page.descSortField("id");
+        }
+        mv.addObject("sort", sort);
+
+        //分页参数
+        queryEntity.setOnsale(CourseEnum.ONSALE.value());
+        page = this.courseService.queryPage(queryEntity, page);
+        mv.addObject("page", page);
+        return mv;
+    }
 }

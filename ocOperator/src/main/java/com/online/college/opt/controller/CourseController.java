@@ -70,11 +70,11 @@ public class CourseController {
         } else {
             queryEntity.setName(null);
         }
-
+        /**每一页显示5数据*/
         page.setPageSize(5);
         page = courseService.queryPage(queryEntity, page);
         mv.addObject("page", page);
-        /**搜索的权重也会带进来，封装在queryEntity防止一次有权重，下次就没了*/
+        /**搜索的权重也会带进来，封装在queryEntity防止一次有权重，下次就没了，出问题*/
         mv.addObject("queryEntity", queryEntity);
         mv.addObject("curNav", "course");
         return mv;
@@ -117,6 +117,7 @@ public class CourseController {
      */
     @RequestMapping("/read")
     public ModelAndView courseRead(Long id) {
+        /**读取课程的基本信息*/
         Course course = courseService.getById(id);
         if (null == course) {
             return new ModelAndView("error/404");
@@ -131,7 +132,7 @@ public class CourseController {
         List<CourseSectionVO> chaptSections = this.portalBusiness.queryCourseSection(id);
         mv.addObject("chaptSections", chaptSections);
 
-        /**课程分类*/
+        /**课程分类，弹出层修改信息的时候使用*/
         Map<String, ConstsClassifyVO> classifyMap = portalBusiness.queryAllClassifyMap();
         /**所有一级分类*/
         List<ConstsClassifyVO> classifysList = new ArrayList<ConstsClassifyVO>();
@@ -139,13 +140,13 @@ public class CourseController {
             classifysList.add(vo);
         }
         mv.addObject("classifys", classifysList);
-
+        /**所有二级分类*/
         List<ConstsClassify> subClassifys = new ArrayList<ConstsClassify>();
         for (ConstsClassifyVO vo : classifyMap.values()) {
             subClassifys.addAll(vo.getSubClassifyList());
         }
         mv.addObject("subClassifys", subClassifys);
-        /**所有二级分类*/
+
 
         /**获取报表统计信息*/
         CourseStudyStaticsDto staticsDto = new CourseStudyStaticsDto();

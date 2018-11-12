@@ -65,6 +65,7 @@
 					<div class="main-category-submenu-content"  id="classify_${item.id!}" >
 						<div class="clearfix" >
 							<div class="submenu-title clearfix">分类目录</div>
+							<!--二级分类不为空，遍历-->
 							<#if item.subClassifyList??>
 							<#list item.subClassifyList as subItem>
 								<a class="submenu-item" href="${s.base}/course/list.html?c=${subItem.code!}">${subItem.name!}</a>
@@ -78,6 +79,7 @@
 						<div class="clearfix" >
 							<div class="submenu-title" style="margin-top: 30px;">课程推荐</div>
 							<div>
+								<!--遍历推荐课程-->
 								<#if item.recomdCourseList?? && item.recomdCourseList?size gt 0 >
 								<#list item.recomdCourseList as item>
 								<a href="${s.base}/course/learn/${item.id}.html" class="mt-10" title="${item.name!}"><li class="ellipsis oc-color-hover">➤ ${item.name!}</li></a>
@@ -97,14 +99,17 @@
 			
 			<!-- 实战推荐-start -->
 			<div class="types-block clearfix">
-				<h3 class="types-title">实战推荐</h3>
+				<h3 class="types-title">实战推荐:</h3>
 				<div class="types-content">
 					<#if actionCourseList?? && actionCourseList?size gt 0>
 					<#list actionCourseList as item>
+					<!--取出freemarker的下标，第一个的下标是0，加一，避免语法错误；
+					默认是0-->
 					<#assign n = item_index + 1 />
 					<a href="${s.base}/course/learn/${item.id}.html" target="_black">
 						<div class="course-card-container"  <#if n %5 == 0>style="margin-right: 0px;" </#if> >
 							<#if n %5 == 0>
+					<!--设置底色-->
 							<div class="course-card-top green-bg">
 							<#elseif n %4 == 0>
 							<div class="course-card-top pink-bg">
@@ -115,7 +120,10 @@
 							<#else>
 							<div class="course-card-top brown-bg">
 							</#if>
+								<!--展示课程的名称-->
 								<span>${item.subClassifyName!}</span>
+								<span>${item.subClassifyName!}</span>
+								<span>${item.name!}</span>
 							</div>
 							
 							<div class="course-card-content">
@@ -124,6 +132,8 @@
 								<div class="course-card-bottom">
 									<div class="course-card-info">${item.studyCount!}人在学</div>
 									<div class="course-card-price">￥${item.price!}</div>
+									<div class="course-card-price">￥${item.type!}</div>
+									<div class="course-card-price">￥${item.name!}</div>
 								</div>
 							</div>
 						</div>
@@ -152,6 +162,7 @@
 							<#elseif n %2 == 0>
 							<div class="course-card-top gray-bg">
 							<#else>
+								<!--都不满足就是这个配配色-->
 							<div class="course-card-top brown-bg">
 							</#if>
 								<span>${item.subClassifyName!}</span>
@@ -162,12 +173,13 @@
 								<p class="course-card-brief" title="${item.brief!}">${item.brief!}</p>
 								<div class="course-card-bottom">
 									<div class="course-card-info">
+										<!--判断课程的级别-->
 									<#if item.level == 1>
-									初级
+									初级哦
 									<#elseif item.level == 2>
-									中级
+									中级！
 									<#else>
-									高级
+									高级...
 									</#if>
 									<span>·</span>${item.studyCount!}人在学
 									</div>
@@ -196,11 +208,15 @@
 							<div class="course-card-bottom" style="margin-top: 50px;">
 								<div class="course-card-info color-fff">了解详情 →</div>
 							</div>
+							<div class="course-card-bottom" style="margin-top: 50px;">
+								<div class="course-card-info color-fff">了解详情 →</div>
+							</div>
 						</div>
 					</div>
 				</div>
 				</a>
-				
+				<!--不为空size大于2，两个展示，否则都不展示；
+				取出第一和第二-->
 				<#if javaCourseList?size gt 2>
 				<#assign javaC1 = javaCourseList[1] />
 				<#assign javaC2 = javaCourseList[2] />
@@ -211,6 +227,7 @@
 								${javaC1.name!}
 							</div>
 						</a>
+						<!--第二展示-->
 						<a href="${s.base}/course/learn/${javaC2.id}.html" target="_black"  title="${javaC2.name!}">
 							<div class="types-content-banner-block gray-bg"  >
 								${javaC2.name!}
@@ -218,17 +235,25 @@
 						</a>
 					</div>
 					<div class="clearfix">
+						<!--遍历-->
 						<#list javaCourseList as item>
+						<!--如果下标大于2；0，1，2，不管了；从第三个遍历-->
 							<#if item_index gt 2>
 							<a href="${s.base}/course/learn/${item.id}.html" target="_black" >
+								<!--等于6最后的样式不要了-->
 								<div class="course-card-container"  <#if item_index == 6>style="margin-right: 0px;" </#if>>
 									<div class="course-card-top green-bg">
-										<span>${item.subClassifyName!}</span>
+										<span>${item.subClassifyName!}</span><hr>
+
 									</div>
 		
 									<div class="course-card-content">
 										<h3 class="course-card-name" title="${item.name!}">${item.name!}</h3>
-										<p  class="course-card-brief" title="${item.brief!}">${item.brief!}</p>
+										<p  class="course-card-brief" title="${item.brief!}">${item.brief!}</p><hr>
+										<p  class="course-card-brief" title="下标">
+											<!--自己的测试下标-->
+											<span>下标：${item_index!}</span></p>
+
 										<div class="course-card-bottom">
 											<#if item.free == 1>
 											<div class="course-card-info">
@@ -242,6 +267,7 @@
 											<span>·</span>${item.studyCount!}人在学
 											</div>
 											<#else>
+										<!--收费课程，不显示级别-->
 											<div class="course-card-info">${item.studyCount!}人在学</div>
 											<div class="course-card-price">￥${item.price!}</div>
 											</#if>
@@ -263,13 +289,17 @@
 				<h3 class="types-title">名校讲师</h3>
 				<#if recomdTeacherList?? && recomdTeacherList?size gt 0>
 				<#list recomdTeacherList as item>
+				<!--第5没有空系-->
 				<div class="lecturer-card-container" <#if item_index == 4 >style="margin-right: 0px;"</#if> >
 					<div class="lecturer-item">
 						<#if item.header?? && item.header != ''>
+						<!--展开头像-->
 						<img class="lecturer-uimg" src="${item.header!}">
 						<#else>
+						<!--默认的头像-->
 						<img class="lecturer-uimg" src="${s.base}/res/i/header.jpg">
 						</#if>
+                    <!--老师和大学的详情-->
 						<span class="lecturer-name">${item.realname!}</span>
 						<span class="lecturer-title">${item.collegeName!} · ${item.education!}</span>
 						<span class="lecturer-p" >${item.title!}，${item.sign!}</span>
@@ -320,6 +350,7 @@
 		//轮播效果 -end
 		
 		//课程分类展示-start
+		//鼠标放上去就会弹出层，鼠标离开就会消失；
 		$(".category").popover({
             trigger:'manual',
             placement : 'right',
@@ -329,6 +360,7 @@
         }).on("mouseenter", function () {
             var cid = $(this).attr('c-id');
             $('#' + cid).show();
+			/*中间空白的悬浮的时候也会显示弹出曾*/
             $('#' + cid).hover(function(){
             	$('#' + cid).show();
             },function(){

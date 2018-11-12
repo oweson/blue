@@ -12,10 +12,11 @@ import lombok.Data;
  */
 @Data
 public class ConstsClassifyVO extends ConstsClassify {
+    /**拥有一级分类的属性*/
 
     private static final long serialVersionUID = -6898939223836635781L;
 
-    //子分类列表
+    /**子分类列表，二级分类的填充*/
     private List<ConstsClassify> subClassifyList = new ArrayList<ConstsClassify>();
 
     //课程推荐列表

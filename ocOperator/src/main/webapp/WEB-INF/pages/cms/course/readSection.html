@@ -3,6 +3,7 @@
 	<#if chaptSections??>
 	<#list chaptSections as item>
 	<div class="chapter" id="chapter-${item.id!}" >
+		<!--显示的是章-->
 		<h3>
 			<strong id="sectionTitle_${item.id!}" >${item.name!}(${item.time!})</strong>
 			<a href="javascript:void(0);" class="chapter-edit" style="margin-right:20px;" onclick="doDeleteSection(${item.id!},0)">删除</a> 
@@ -11,6 +12,7 @@
 			<a href="javascript:void(0);" class="chapter-edit" onclick="toSortSection(${item.id!},1)">↓</a> 
 		</h3>
 		<ul class="chapter-sub">
+			<!--显示的是节-->
 			<#if item.sections??>
 			<#list item.sections as section>
 			<li id="chapter-sub-li-${section.id!}" class="chapter-sub-li">
@@ -71,7 +73,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- 章节弹出层 -end -->
+	<!-- 章节修改弹出层 -end -->
 	
 	<script type="text/javascript">
 		//编辑章节 
@@ -84,6 +86,7 @@
 				$('#time-group').hide();
 			}
 			$.ajax({
+				// ajax修改信息
 				url:'${s.base}/courseSection/getById.html',
 			    type:'POST',
 			    dataType:'json',

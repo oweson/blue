@@ -10,6 +10,11 @@ import com.online.college.common.util.BeanUtil;
  */
 @Data
 public class CourseQueryDto extends Course {
+    /**
+     * 需要排序；
+     * 需要查询多少条数据
+     * 数量
+     */
 
     private static final long serialVersionUID = 6928526481007198051L;
 

@@ -25,6 +25,7 @@ public class CourseServiceImpl implements ICourseService {
      * 有图片不为空就设置到课程上面
      */
     private void prepareCoursePicture(Course course) {
+        /**课程不为空并且有图片及取出七牛云的图片设置到课程*/
         if (null != course && StringUtils.isNotEmpty(course.getPicture())) {
             course.setPicture(QiniuStorage.getUrl(course.getPicture()));
         }
@@ -39,7 +40,8 @@ public class CourseServiceImpl implements ICourseService {
 
     @Override
     public List<Course> queryList(CourseQueryDto queryEntity) {
-        if (null == queryEntity.getOnsale()) {//是否上架
+        /**是否上架*/
+        if (null == queryEntity.getOnsale()) {
             queryEntity.setOnsale(CourseEnum.ONSALE.value());
         }
         return entityDao.queryList(queryEntity);
@@ -53,11 +55,13 @@ public class CourseServiceImpl implements ICourseService {
         List<Course> items = entityDao.queryPage(queryEntity, page);
         if (CollectionUtils.isNotEmpty(items)) {
             for (Course item : items) {
-                /**如果课程有图片就进行七牛云的处理*/
+                /**如果课程有图片就进行七牛云的处理，设置图片到课程进行前端的展示*/
                 prepareCoursePicture(item);
             }
         }
+        /**为分页设置总数*/
         page.setItemsTotalCount(itemsTotalCount);
+        /**为分页设置数据*/
         page.setItems(items);
         return page;
     }

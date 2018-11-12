@@ -51,7 +51,8 @@ public class Course extends BaseEntity{
 	private String username;
 
 	/**
-	*课程级别：1-初级，2-中级，3-高级
+	*课程级别：1-初级，2-中级，3-高级；
+	 * 前端展示的时候使用；
 	**/
 	private Integer level;
 

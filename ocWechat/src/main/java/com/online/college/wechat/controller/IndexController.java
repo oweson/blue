@@ -19,6 +19,7 @@ public class IndexController {
 
 	@Autowired
 	private ICourseService courseService;
+	// 在项目里面引用mamcache
 	
 	//memcache客户端
 	/*@Autowired

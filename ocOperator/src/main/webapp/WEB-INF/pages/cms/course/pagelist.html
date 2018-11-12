@@ -29,12 +29,15 @@
 	                	<#if page.sortDirection == 'DESC'><span>▼</span><#else><span>▲</span></#if>
 	                	</#if>
                 	</a>
+				<!---->
                 	<a href="javascript:void(0)" sortField="weight" class="search-sort-block <#if page.sortField?? && page.sortField == 'weight'>search-sort-block-cur</#if>" >
                 		<span>推荐权重</span>
                 		<#if page.sortField?? && page.sortField == 'weight'>
+						<!--排序规则-->
 	                	<#if page.sortDirection == 'DESC'><span>▼</span><#else><span>▲</span></#if>
 	                	</#if>
                 	</a>
+				<!--隐藏框点击搜索的时候要把值带过去-->
                 	<input type="hidden" id="sortField" name="sortField" value="${page.sortField!}" />
                 	<input type="hidden" id="sortDirection" name="sortDirection" value="${page.sortDirection!'DESC'}" />
                 	<input type="text" class="search-text" name="name" value="${(queryEntity.name)!}"  style="margin-top:5px;" placeholder="请输入课程名称">
@@ -48,6 +51,7 @@
 					<div id="widget2container" class="block-body">
 						<table class="table list">
 							<tbody>
+							<!--查询的信息不为空就遍历-->
 								<#if (page.items)??>
 								<#list page.items as item>
 								<tr id="tr-${item.id!}">
@@ -89,7 +93,8 @@
 										<p>${item.updateTime?string('yyyy-MM-dd HH:mm')}</p>
 									</td>
 									<td style="width:120px;">
-										<p>推荐权重：${item.weight!}</p> 
+										<p>推荐权重：${item.weight!}</p>
+										<!--绑定事件，单击上下架ajax,上架和下架的状态只有一个状态显示，通过0和1进行显示-->
 										<p><a href="javascript:void(0)" onclick="doSale(${item.id!},${item.onsale!});"><#if item.onsale == 1>课程下架<#else>发布上架</#if></a></p>
 										<p><a href="javascript:void(0)" onclick="doDelete(${item.id!});">删除</a></p> 
 									</td>
@@ -149,6 +154,7 @@
 					$('#sortField').val(field);
 					$('#sortDirection').val('DESC');
 				}else{
+				    /*向上排序*/
 					$(directSpan).html('▲');
 					$('#sortField').val(field);
 					$('#sortDirection').val('ASC');
@@ -157,7 +163,7 @@
 			});
 		});
 		
-		//课程上下架
+		//课程上下架，ajax请求
 		function doSale(id,sale){
 			if(sale == 0){
 				sale = 1;
@@ -168,6 +174,7 @@
 				url:'${s.base}/course/doSale.html',
 			    type:'POST',
 			    dataType:'json',
+				// sale true or false
 			    data:{"id":id,onsale:sale},
 			    success:function(resp){
 			    	var errcode = resp.errcode;
@@ -180,6 +187,7 @@
 		
 		//课程删除
 		function doDelete(id){
+		    //删除前的提示
 			Modal.confirm('课程章节将一并删除，确定删除?',function(){
 				$.ajax({
 					url:'${s.base}/course/doDelete.html',

@@ -50,9 +50,12 @@
 			<div class="types-block clearfix" style="padding:0px;">
 				<h3 style="margin-bottom: 20px;">	
 					<span class="types-title" style="margin-right:40px;">课程列表</span>
+					<!--点击最新传递last参数;
+					dundifined调用的是页面的缓存的-->
 					<a href="javascript:void(0)" style="display: inline-block;margin-right:20px;" onclick="_queryPage(1,undefined,'last')">
 					<span <#if sort?? && sort=='last'>class="color-oc"</#if> >最新</span>
 					</a>
+					<!--点击最热传递pop-->
 					<a href="javascript:void(0)" style="display: inline-block;" onclick="_queryPage(1,undefined,'pop')">
 					<span <#if sort?? && sort=='pop'>class="color-oc"</#if> >最热</span>
 					</a>

@@ -18,6 +18,7 @@
     <file url="file://$PROJECT_DIR$/ocPortal/src/main/resources/shiro.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/ocPortal/src/main/webapp/WEB-INF/ftl" charset="GBK" />
     <file url="file://$PROJECT_DIR$/ocPortal/src/main/webapp/WEB-INF/pages" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ocPortal/src/main/webapp/WEB-INF/pages/index.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ocPortal/src/main/webapp/WEB-INF/web.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/ocPortal/src/main/webapp/index.html" charset="GBK" />
     <file url="file://$PROJECT_DIR$/ocPortal/src/main/webapp/res" charset="GBK" />
@@ -27,12 +28,8 @@
     <file url="file://$PROJECT_DIR$/ocService/src/main/resources/app-servlet.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/ocService/src/main/resources/application.properties" charset="GBK" />
     <file url="file://$PROJECT_DIR$/ocService/src/main/resources/applicationContext.xml" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/ocService/src/main/resources/applicationContext.xml" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/ocService/src/main/resources/jdbc.properties" charset="GBK" />
     <file url="file://$PROJECT_DIR$/ocService/src/main/resources/jdbc.properties" charset="GBK" />
     <file url="file://$PROJECT_DIR$/ocService/src/main/resources/log4j.properties" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/ocService/src/main/resources/log4j.properties" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/ocService/src/main/resources/mybatis-config.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/ocService/src/main/resources/mybatis-config.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/ocService/src/main/resources/shiro.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/ocService/src/test/java/com" charset="GBK" />

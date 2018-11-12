@@ -24,63 +24,70 @@ import com.online.college.portal.vo.ConstsClassifyVO;
  */
 @Service
 public class PortalBusinessImpl implements IPortalBusiness {
-	
-	@Autowired
-	private IConstsClassifyService constsClassifyService;
-	
-	@Autowired
-	private ICourseService courseService;
 
-	/**
-	 * 1 获取所有，包括一级分类&二级分类
-	 */
-	public List<ConstsClassifyVO> queryAllClassify(){
-		List<ConstsClassifyVO> resultList = new ArrayList<ConstsClassifyVO>();
-		for(ConstsClassifyVO vo : this.queryAllClassifyMap().values()){
-			resultList.add(vo);
-		}
-		return resultList;
-	}
-	
-	/**
-	 * 获取所有分类
-	 */
-	public Map<String,ConstsClassifyVO> queryAllClassifyMap(){
-		Map<String,ConstsClassifyVO> resultMap = new LinkedHashMap<String,ConstsClassifyVO>();
-		Iterator<ConstsClassify> it = constsClassifyService.queryAll().iterator();
-		while(it.hasNext()){
-			ConstsClassify c = it.next();
-			if("0".equals(c.getParentCode())){
-				/**id为0一级分类*/
-				ConstsClassifyVO vo = new ConstsClassifyVO();
-				BeanUtils.copyProperties(c, vo);
-				resultMap.put(vo.getCode(), vo);
-			}else{//二级分类
-				if(null != resultMap.get(c.getParentCode())){
-					resultMap.get(c.getParentCode()).getSubClassifyList().add(c);//添加到子分类中
-				}
-			}
-		}
-		return resultMap;
-	}
-	
-	/**
-	 * 为分类设置课程推荐
-	 */
-	public void prepareRecomdCourses(List<ConstsClassifyVO> classifyVoList){
-		if(CollectionUtils.isNotEmpty(classifyVoList)){
-			for(ConstsClassifyVO item : classifyVoList){
-				CourseQueryDto queryEntity = new CourseQueryDto();
-				queryEntity.setCount(5);
-				queryEntity.descSortField("weight");
-				queryEntity.setClassify(item.getCode());//分类code
-				
-				List<Course> tmpList = this.courseService.queryList(queryEntity);
-				if(CollectionUtils.isNotEmpty(tmpList)){
-					item.setRecomdCourseList(tmpList);
-				}
-			}
-		}
-	}
-	
+    @Autowired
+    private IConstsClassifyService constsClassifyService;
+
+    @Autowired
+    private ICourseService courseService;
+
+    /**
+     * 1 获取所有，包括一级分类&二级分类
+     */
+    public List<ConstsClassifyVO> queryAllClassify() {
+        List<ConstsClassifyVO> resultList = new ArrayList<ConstsClassifyVO>();
+        for (ConstsClassifyVO vo : this.queryAllClassifyMap().values()) {
+            /**一级分类存放*/
+            resultList.add(vo);
+        }
+        return resultList;
+    }
+
+    /**
+     * 2 获取所有分类
+     */
+    public Map<String, ConstsClassifyVO> queryAllClassifyMap() {
+        Map<String, ConstsClassifyVO> resultMap = new LinkedHashMap<String, ConstsClassifyVO>();
+        Iterator<ConstsClassify> it = constsClassifyService.queryAll().iterator();
+        while (it.hasNext()) {
+            ConstsClassify c = it.next();
+            if ("0".equals(c.getParentCode())) {
+                /**id为0一级分类*/
+                ConstsClassifyVO vo = new ConstsClassifyVO();
+                BeanUtils.copyProperties(c, vo);
+                /**k对应二级分类的parentcode*/
+                resultMap.put(vo.getCode(), vo);
+            } else {
+                /**二级分类*/
+                if (null != resultMap.get(c.getParentCode())) {
+                    /**添加到子分类中,二级分类；
+                     * 下面首先得对像.列表*/
+                    resultMap.get(c.getParentCode()).getSubClassifyList().add(c);
+                }
+            }
+        }
+        return resultMap;
+    }
+
+    /**
+     * 3 为分类设置课程推荐
+     */
+    public void prepareRecomdCourses(List<ConstsClassifyVO> classifyVoList) {
+        if (CollectionUtils.isNotEmpty(classifyVoList)) {
+            for (ConstsClassifyVO item : classifyVoList) {
+                CourseQueryDto queryEntity = new CourseQueryDto();
+                queryEntity.setCount(5);
+                queryEntity.descSortField("weight");
+                /**分类code*/
+                queryEntity.setClassify(item.getCode());
+
+                List<Course> tmpList = this.courseService.queryList(queryEntity);
+                if (CollectionUtils.isNotEmpty(tmpList)) {
+                    /*设置推建列表*/
+                    item.setRecomdCourseList(tmpList);
+                }
+            }
+        }
+    }
+
 }

@@ -26,8 +26,10 @@ public class ConstsSiteCarouselServiceImpl implements IConstsSiteCarouselService
 	@Override
 	public List<ConstsSiteCarousel> queryCarousels(Integer count){
 		List<ConstsSiteCarousel> resultList = entityDao.queryCarousels(count);
-		//处理为七牛图片链接
+		/**处理为七牛图片链接;
+		 * db存key*/
 		for(ConstsSiteCarousel item : resultList){
+			/**设置*/
 			item.setPicture(QiniuStorage.getUrl(item.getPicture()));
 		}
 		return resultList;

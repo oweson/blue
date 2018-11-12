@@ -55,7 +55,7 @@ j具体的定义在src下面的app-servlet.xml文件中，立刻启动,-->
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-<!-- 4 所有的*.html的页面都会经过mvc的app-servlet区转发-->
+<!-- 4 所有的*.html的页面都会经过mvc的app-servlet区转发，不是就算了走吧-->
     <servlet-mapping>
         <servlet-name>app-servlet</servlet-name>
         <url-pattern>*.html</url-pattern>

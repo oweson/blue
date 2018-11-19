@@ -51,6 +51,7 @@
 						<#list classifys as item>
 						<#if item_index lt 6>
 						<div class="category" c-id="classify_${item.id!}">
+							<!--占位符也可以传参-->
 							<a href="${s.base}/course/list.html?c=${item.code!}"><div class="group">${item.name!} </div></a>
 						</div>
 						</#if>

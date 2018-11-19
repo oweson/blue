@@ -27,6 +27,7 @@ public class StaticsServiceImpl implements IStaticsService {
 		
 		StaticsVO returnVo = new StaticsVO();
 		List<String> categories = new ArrayList<String>();
+		/**int*/
 		List<Integer> data = new ArrayList<Integer>();
 		
 		if(CollectionUtils.isNotEmpty(list)){
@@ -34,6 +35,7 @@ public class StaticsServiceImpl implements IStaticsService {
 				categories.add(item.getDateStr());
 				data.add(item.getTotalCount());
 			}
+			/**设置数据*/
 			returnVo.setCategories(categories);
 			returnVo.setData(data);
 		}

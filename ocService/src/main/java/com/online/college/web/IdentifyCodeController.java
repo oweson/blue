@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.online.college.common.web.SessionContext;
 
 /**
- * 验证码生成器
+ * 1  验证码生成器，返回的是stream,jpg的图片
  */
 @Controller
 @RequestMapping("/tools/identiry")
@@ -34,17 +34,18 @@ public class IdentifyCodeController {
 		int width=110, height=33; 
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB); 
 		Graphics g = image.getGraphics(); 
-		//以下填充背景色 
+		/**以下填充背景色*/
 		g.setColor(new Color(225,225,225)); 
 		Font DeFont=new Font("SansSerif", Font.PLAIN, 26);   
 		g.setFont(DeFont); 
 		g.fillRect(0, 0, width, height); 
-		//设置字体色 
+		/**设置字体色*/
 		g.setColor(Color.BLACK); 
 		g.drawString(random,20,25); 
 		g.dispose(); 
 		try {
 			ServletOutputStream outStream = response.getOutputStream();
+			/**响应图片*/
 			ImageIO.write(image, "JPG", outStream);
 			outStream.close(); 
 		} catch (IOException e) {

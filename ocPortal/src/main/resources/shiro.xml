@@ -4,14 +4,14 @@
 		xsi:schemaLocation="http://www.springframework.org/schema/beans 
 							http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-    <!-- 会话Cookie模板 -->  
+    <!-- 1 会话Cookie模板 -->
     <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">  
         <constructor-arg value="sid"/>  
         <property name="httpOnly" value="true"/>  
         <property name="maxAge" value="-1"/>  
     </bean>
     
-    <!-- rememberMe Cookie  -->
+    <!-- 2 rememberMe Cookie  -->
     <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">  
         <constructor-arg value="rememberMe"/>
         <property name="path" value="/"/>  
@@ -24,21 +24,22 @@
      	<property name="cookie" ref="rememberMeCookie"/>  
 	</bean>
 	
-    <!-- 自定义Realm -->  
+    <!-- 3 自定义Realm -->
     <bean id="authRealm" class="com.online.college.web.auth.AuthRealm"></bean>
     
-    <!-- 保存在内存 -->
+    <!-- 4 保存在内存,权限安全 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="authRealm" />
 		<property name="rememberMeManager" ref="rememberMeManager"/>  
 	</bean>
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>  
 	
-	<!-- 自定义 filter -->
+	<!-- 5 自定义 filter ，拦截url哪些需要登录，哪些不需要登录-->
 	<bean id="authFilter" class="com.online.college.web.auth.AuthFilter" />
 	
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
+		<!--没有权限-->
 		<property name="unauthorizedUrl" value="/error/403.html" />
 		<property name="successUrl" value="/" />
 		<property name="loginUrl" value="/auth/login.html" />
@@ -58,10 +59,11 @@
 				
 				/course/list.html* = anon
 				/course/learn/*.html = anon
+				<!--视频页面需哟认证登录-->
 				/course/video/*.html = authc
-				
+				<!--加载评论不需要登录-->
 				/courseComment/segment.html* = anon
-				
+				<!--其他的都需要登录-->
 				/** = authc
 			</value>
 		</property>

@@ -25,26 +25,28 @@ public class AuthUserServiceImpl implements IAuthUserService {
     }
 
     /**
-     * 根据username获取
+     * 1 根据username获取
      **/
     public AuthUser getByUsername(String username) {
         return entityDao.getByUsername(username);
     }
 
-
+    /**
+     * 2 根据id获取
+     */
     public AuthUser getById(Long id) {
         return entityDao.getById(id);
     }
 
     /**
-     * 根据username和password获取
+     * 3 根据username和password获取
      **/
     public AuthUser getByUsernameAndPassword(AuthUser authUser) {
         return entityDao.getByUsernameAndPassword(authUser);
     }
 
     /**
-     * 获取首页推荐5个讲师
+     * 4 获取首页推荐5个讲师
      **/
     public List<AuthUser> queryRecomd() {
         List<AuthUser> recomdList = entityDao.queryRecomd();
@@ -60,7 +62,7 @@ public class AuthUserServiceImpl implements IAuthUserService {
     }
 
     /**
-     * 分页的信息
+     * 5 分页的信息
      */
     public TailPage<AuthUser> queryPage(AuthUser queryEntity, TailPage<AuthUser> page) {
         Integer itemsTotalCount = entityDao.getTotalItemsCount(queryEntity);
@@ -72,19 +74,30 @@ public class AuthUserServiceImpl implements IAuthUserService {
         return page;
     }
 
-
+    /**
+     * 6 更新
+     */
     public void update(AuthUser entity) {
         entityDao.update(entity);
     }
 
+    /**
+     * 7 有选择的更新
+     */
     public void updateSelectivity(AuthUser entity) {
         entityDao.updateSelectivity(entity);
     }
 
+    /**
+     * 8 删除
+     */
     public void delete(AuthUser entity) {
         entityDao.delete(entity);
     }
 
+    /**
+     * 9 逻辑删除
+     */
     public void deleteLogic(AuthUser entity) {
         entityDao.deleteLogic(entity);
     }

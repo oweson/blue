@@ -81,7 +81,7 @@ public class CourseController {
     }
 
     /**
-     *  2 课程上下架
+     * 2 课程上下架
      */
     @RequestMapping("/doSale")
     @ResponseBody
@@ -93,7 +93,7 @@ public class CourseController {
     }
 
     /**
-     *  3 课程删除
+     * 3 课程删除
      */
     @RequestMapping("/doDelete")
     @ResponseBody
@@ -103,7 +103,7 @@ public class CourseController {
     }
 
     /**
-     *  4 根据id获取
+     * 4 根据id获取
      */
     @RequestMapping("/getById")
     @ResponseBody
@@ -112,8 +112,7 @@ public class CourseController {
     }
 
     /**
-     *   5 课程详情,两部分，上面的和下面的；
-     *
+     * 5 课程详情,两部分，上面的和下面的；
      */
     @RequestMapping("/read")
     public ModelAndView courseRead(Long id) {
@@ -134,23 +133,28 @@ public class CourseController {
 
         /**课程分类，弹出层修改信息的时候使用*/
         Map<String, ConstsClassifyVO> classifyMap = portalBusiness.queryAllClassifyMap();
-        /**所有一级分类*/
+        /**所有一级分类，一级分类包含二级分类*/
         List<ConstsClassifyVO> classifysList = new ArrayList<ConstsClassifyVO>();
         for (ConstsClassifyVO vo : classifyMap.values()) {
             classifysList.add(vo);
         }
+        /**修改课程的时候用到*/
         mv.addObject("classifys", classifysList);
         /**所有二级分类*/
         List<ConstsClassify> subClassifys = new ArrayList<ConstsClassify>();
         for (ConstsClassifyVO vo : classifyMap.values()) {
+            /**把二级分类填充到集合*/
             subClassifys.addAll(vo.getSubClassifyList());
         }
+        /**为弹出层服务，修改的时候用到*/
         mv.addObject("subClassifys", subClassifys);
 
 
         /**获取报表统计信息*/
         CourseStudyStaticsDto staticsDto = new CourseStudyStaticsDto();
+        /**某个课程的*/
         staticsDto.setCourseId(course.getId());
+        /**结束的时间*/
         staticsDto.setEndDate(new Date());
         staticsDto.setStartDate(CalendarUtil.getPreNDay(new Date(), 7));
 
@@ -166,7 +170,7 @@ public class CourseController {
     }
 
     /**
-     *  6 添加、修改课程
+     * 6 添加、修改课程
      */
     @RequestMapping("/doMerge")
     @ResponseBody
@@ -186,6 +190,7 @@ public class CourseController {
         if (StringUtils.isNotEmpty(entity.getUsername())) {
             AuthUser user = authUserService.getByUsername(entity.getUsername());
             if (null == user) {
+                /**提示教师不存在*/
                 return JsonView.render(1).toString();
             }
         } else {
@@ -217,7 +222,7 @@ public class CourseController {
 
 
     /**
-     * 添加课程
+     * 7  添加课程,课程信息和章节是依赖的关系
      */
     @RequestMapping("/add")
     public ModelAndView add() {

@@ -75,13 +75,18 @@ public class ClassifyController {
     @RequestMapping(value = "/doMerge")
     @ResponseBody
     public String doMerge(ConstsClassify entity) {
+        /**新增的*/
         if (entity.getId() == null) {
+            /**验证是否存在*/
             ConstsClassify tmpEntity = entityService.getByCode(entity.getCode());
             if (tmpEntity != null) {
+                /**不可添加*/
                 return JsonView.render(1, "此编码已存在");
             }
+            /**新的入库*/
             entityService.createSelectivity(entity);
         } else {
+            /**更新*/
             entityService.updateSelectivity(entity);
         }
         return new JsonView().toString();

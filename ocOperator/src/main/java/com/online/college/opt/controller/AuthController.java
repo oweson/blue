@@ -59,13 +59,25 @@ public class AuthController {
             mv.addObject("errcode", 1);
             return mv;
         }
-        /**验证码通过，进行shiiro的登录操作*/
+        //todo 有bug都禁用了竟然还可以登录，那么禁用的意义何在？？？
+        /**验证码通过，进行shiro的登录操作*/
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), EncryptUtil.encodedByMD5(user.getPassword()));
         try {
             Subject currentUser = SecurityUtils.getSubject();
             /**shiro实现登录*/
             currentUser.login(token);
-            /**登录成功跳转到首页*/
+            /**登录成功跳转到首页；
+             * 这里判断用户的状态是否可用*/
+            AuthUser principals = (AuthUser) currentUser.getPrincipals();
+            boolean equals = principals.getStatus().equals(0);
+            ModelAndView mv = new ModelAndView("auth/login");
+            /**正常的账号不会走这里的*/
+            if (equals) {
+                // todo 仍然可以登录，他妈的，自己可以修改自己！！！
+                /**标志i位位0，不可以登录,登录失败，直接去首页*/
+                mv.addObject("errcode", 3);
+                return mv;
+            }
             return new ModelAndView("redirect:/index.html");
         } catch (AuthenticationException e) {
             /**登录失败,返回错误码给前端*/

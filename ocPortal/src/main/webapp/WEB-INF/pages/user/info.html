@@ -25,6 +25,7 @@
 				<div class="split-line" style="margin: 20px 0px;"></div>
 				
 				<div>
+					<!--上传图片-->
 					<form class="oc-form" id="infoForm" method="post" action="${s.base}/user/saveInfo.html" enctype="multipart/form-data">
 						<div >
 							<input type="file" id="pictureImg" name="pictureImg" style="display: none;" onchange="photoImgChange();">
@@ -45,6 +46,9 @@
 						<li><label>姓名</label> 
 							<input name="realname"  value="${authUser.realname!}" type="text"  class="input-text2">
 						</li>
+				      <li><label>中文名</label>
+					<input name="realname"  value="${authUser.realname!}" type="text"  class="input-text2">
+				     </li>
 						<li><label>性别</label> 
 							<select class="input-select" name="gender">
 								<option value="1" <#if authUser.gender?? && authUser.gender == 1> selected="selected"</#if> >男</option>
@@ -93,6 +97,7 @@
 			function doUpload(){
 				$('#pictureImg').click();
 			}
+			/*图片的预览功能，并未真正的上传*/
 			function photoImgChange(){
 				var img = $('#pictureImg').val();
 				if(oc.photoValid(img)){
@@ -112,7 +117,7 @@
 					success : function(resp) {
 						var resp = $.parseJSON(resp);
 						if (resp.errcode == 0) {
-							$("#myAlert").show().fadeOut(2500);//显示模态框
+							$("#myAlert").show().fadeOut(2500);//显示模态框，提示成功还是失败
 						} else {
 							$("#myAlert").show().fadeOut(2500);//显示模态框
 						}

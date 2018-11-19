@@ -72,7 +72,7 @@ public class PortalController {
 
         /** 6获取5门免费课推荐，根据权重（weight）进行排序；
          * 这里复用了查询对象queryEntity*/
-        queryEntity.setFree(CourseEnum.FREE.value());//非免费的：实战课
+        queryEntity.setFree(CourseEnum.FREE.value());//免费的：不是实战课
         List<Course> freeCourseList = this.courseService.queryList(queryEntity);
         mv.addObject("freeCourseList", freeCourseList);
 

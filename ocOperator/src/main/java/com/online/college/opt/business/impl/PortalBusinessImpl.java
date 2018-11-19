@@ -39,7 +39,7 @@ public class PortalBusinessImpl implements IPortalBusiness {
     private ICourseSectionService courseSectionService;
 
     /**
-     * 获取所有，包括一级分类&二级分类
+     * 1 获取所有，包括一级分类&二级分类
      */
     public List<ConstsClassifyVO> queryAllClassify() {
         List<ConstsClassifyVO> resultList = new ArrayList<ConstsClassifyVO>();
@@ -50,7 +50,7 @@ public class PortalBusinessImpl implements IPortalBusiness {
     }
 
     /**
-     * 获取所有分类
+     * 2 获取所有分类，二级分类填到一级分类
      */
     public Map<String, ConstsClassifyVO> queryAllClassifyMap() {
         Map<String, ConstsClassifyVO> resultMap = new LinkedHashMap<String, ConstsClassifyVO>();
@@ -66,13 +66,13 @@ public class PortalBusinessImpl implements IPortalBusiness {
                 /**k,v的方法存储父级分类;
                  * be:后端；
                  * fe：前端；key就是be,fe......子分类的parentCode对应
-                 * 子分类：*/
+                 * 父分类：*/
                 resultMap.put(vo.getCode(), vo);
             } else {
                 /**二级分类，子分类*/
                 if (null != resultMap.get(c.getParentCode())) {
                     /**添加到子分类中;
-                     * b把二级分类添加到一级分类的下面
+                     * 把二级分类添加到一级分类的下面
                      * */
                     resultMap.get(c.getParentCode()).getSubClassifyList().add(c);
                 }
@@ -82,7 +82,7 @@ public class PortalBusinessImpl implements IPortalBusiness {
     }
 
     /**
-     * 为分类设置课程推荐
+     * 3 为分类设置课程推荐
      */
     public void prepareRecomdCourses(List<ConstsClassifyVO> classifyVoList) {
         if (CollectionUtils.isNotEmpty(classifyVoList)) {

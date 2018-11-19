@@ -101,7 +101,7 @@ public class CourseListController {
         if ("pop".equals(sort)) {//最热
             page.descSortField("studyCount");
         } else {
-            sort = "last";
+            sort = "last";//最新
             page.descSortField("id");
         }
         mv.addObject("sort", sort);

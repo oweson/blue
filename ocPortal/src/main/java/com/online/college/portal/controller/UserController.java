@@ -31,160 +31,167 @@ import com.online.college.core.user.service.IUserFollowsService;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	
-	@Autowired
-	private IUserFollowsService userFollowsService;
-	
-	@Autowired
-	private IAuthUserService authUserService;
-	
-	@Autowired
-	private IUserCourseSectionService userCourseSectionService;
-	
-	@Autowired
-	private IUserCollectionsService userCollectionsService;
-	
-	@Autowired
-	private ICourseCommentService courseCommentService;
-	
-	/**
-	 * 首页
-	 */
-	@RequestMapping("/home")
-	public ModelAndView index(TailPage<UserFollowStudyRecord> page){
-		ModelAndView mv = new ModelAndView("user/home");
-		mv.addObject("curNav","home");
-		
-		//加载关注用户的动态
-		UserFollowStudyRecord queryEntity = new UserFollowStudyRecord();
-		queryEntity.setUserId(SessionContext.getUserId());
-		page = userFollowsService.queryUserFollowStudyRecordPage(queryEntity, page);
-		
-		//处理用户头像
-		for(UserFollowStudyRecord item : page.getItems()){
-			if(StringUtils.isNotEmpty(item.getHeader())){
-				item.setHeader(QiniuStorage.getUrl(item.getHeader()));
-			}
-		}
-		mv.addObject("page", page);
-		
-		return mv;
-	}
-	
-	/**
-	 * 我的课程
-	 */
-	@RequestMapping("/course")
-	public ModelAndView course(TailPage<UserCourseSectionDto> page){
-		ModelAndView mv = new ModelAndView("user/course");
-		mv.addObject("curNav","course");
-		
-		UserCourseSection queryEntity = new UserCourseSection();
-		queryEntity.setUserId(SessionContext.getUserId());
-		page = userCourseSectionService.queryPage(queryEntity, page);
-		mv.addObject("page", page);
-		
-		return mv;
-	}
-	
-	/**
-	 * 我的收藏
-	 */
-	@RequestMapping("/collect")
-	public ModelAndView collect(TailPage<UserCollections> page){
-		ModelAndView mv = new ModelAndView("user/collect");
-		mv.addObject("curNav","collect");
-		UserCollections queryEntity = new UserCollections();
-		queryEntity.setUserId(SessionContext.getUserId());
-		page = userCollectionsService.queryPage(queryEntity, page);
-		
-		mv.addObject("page", page);
-		return mv;
-	}
-	
-	/**
-	 * 信息
-	 */
-	@RequestMapping("/info")
-	public ModelAndView info(){
-		ModelAndView mv = new ModelAndView("user/info");
-		mv.addObject("curNav","info");
-		
-		AuthUser authUser = authUserService.getById(SessionContext.getUserId());
-		if(null != authUser && StringUtils.isNotEmpty(authUser.getHeader())){
-			authUser.setHeader(QiniuStorage.getUrl(authUser.getHeader()));
-		}
-		mv.addObject("authUser",authUser);
-		return mv;
-	}
-	/**
-	 * 保存信息
-	 */
-	@RequestMapping("/saveInfo")
-	@ResponseBody
-	public String saveInfo(AuthUser authUser, @RequestParam MultipartFile pictureImg){
-		try {
-			authUser.setId(SessionContext.getUserId());
-			if (null != pictureImg && pictureImg.getBytes().length > 0) {
-				String key = QiniuStorage.uploadImage(pictureImg.getBytes());
-				authUser.setHeader(key);
-			}
-			authUserService.updateSelectivity(authUser);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return new JsonView().toString();
-	}
-	
-	/**
-	 * 密码
-	 */
-	@RequestMapping("/passwd")
-	public ModelAndView passwd(){
-		ModelAndView mv = new ModelAndView("user/passwd");
-		mv.addObject("curNav","passwd");
-		return mv;
-	}
-	
-	/**
-	 * 密码
-	 */
-	@RequestMapping("/savePasswd")
-	@ResponseBody
-	public String savePasswd(String oldPassword, String password, String rePassword){
-		AuthUser currentUser = authUserService.getById(SessionContext.getUserId());
-		if(null == currentUser){
-			return JsonView.render(1,"用户不存在！");
-		}
-		oldPassword = EncryptUtil.encodedByMD5(oldPassword.trim());
-		if(!oldPassword.equals(currentUser.getPassword())){
-			return JsonView.render(1,"旧密码不正确！");
-		}
-		if(StringUtils.isEmpty(password.trim())){
-			return JsonView.render(1,"新密码不能为空！");
-		}
-		if(!password.trim().equals(rePassword.trim())){
-			return JsonView.render(1,"新密码与重复密码不一致！");
-		}
-		currentUser.setPassword(EncryptUtil.encodedByMD5(password));
-		authUserService.updateSelectivity(currentUser);
-		return new JsonView().toString();
-	}
-	
-	/**
-	 * 问答
-	 */
-	@RequestMapping("/qa")
-	public ModelAndView qa(TailPage<CourseComment> page){
-		ModelAndView mv = new ModelAndView("user/qa");
-		mv.addObject("curNav","qa");
-		
-		CourseComment queryEntity = new CourseComment();
-		queryEntity.setUsername(SessionContext.getUsername());
-		page = courseCommentService.queryMyQAItemsPage(queryEntity, page);
-		mv.addObject("page", page);
-		
-		return mv;
-	}
-	
+
+    @Autowired
+    private IUserFollowsService userFollowsService;
+
+    @Autowired
+    private IAuthUserService authUserService;
+
+    @Autowired
+    private IUserCourseSectionService userCourseSectionService;
+
+    @Autowired
+    private IUserCollectionsService userCollectionsService;
+
+    @Autowired
+    private ICourseCommentService courseCommentService;
+
+    /**
+     * 1 首页
+     */
+    @RequestMapping("/home")
+    public ModelAndView index(TailPage<UserFollowStudyRecord> page) {
+        ModelAndView mv = new ModelAndView("user/home");
+        mv.addObject("curNav", "home");
+
+        //加载关注用户的动态
+        UserFollowStudyRecord queryEntity = new UserFollowStudyRecord();
+        queryEntity.setUserId(SessionContext.getUserId());
+        page = userFollowsService.queryUserFollowStudyRecordPage(queryEntity, page);
+
+        //处理用户头像
+        for (UserFollowStudyRecord item : page.getItems()) {
+            if (StringUtils.isNotEmpty(item.getHeader())) {
+                item.setHeader(QiniuStorage.getUrl(item.getHeader()));
+            }
+        }
+        mv.addObject("page", page);
+
+        return mv;
+    }
+
+    /**
+     * 2 我的课程
+     */
+    @RequestMapping("/course")
+    public ModelAndView course(TailPage<UserCourseSectionDto> page) {
+        ModelAndView mv = new ModelAndView("user/course");
+        mv.addObject("curNav", "course");
+
+        UserCourseSection queryEntity = new UserCourseSection();
+        queryEntity.setUserId(SessionContext.getUserId());
+        page = userCourseSectionService.queryPage(queryEntity, page);
+        mv.addObject("page", page);
+
+        return mv;
+    }
+
+    /**
+     * 3  我的收藏
+     */
+    @RequestMapping("/collect")
+    public ModelAndView collect(TailPage<UserCollections> page) {
+        ModelAndView mv = new ModelAndView("user/collect");
+        mv.addObject("curNav", "collect");
+        UserCollections queryEntity = new UserCollections();
+        queryEntity.setUserId(SessionContext.getUserId());
+        page = userCollectionsService.queryPage(queryEntity, page);
+
+        mv.addObject("page", page);
+        return mv;
+    }
+
+    /**
+     * 4 信息的回显
+     */
+    @RequestMapping("/info")
+    public ModelAndView info() {
+        ModelAndView mv = new ModelAndView("user/info");
+        mv.addObject("curNav", "info");
+
+        AuthUser authUser = authUserService.getById(SessionContext.getUserId());
+        /**用户存在，并且头像存在就去七牛拉取用户的头像*/
+        if (null != authUser && StringUtils.isNotEmpty(authUser.getHeader())) {
+            authUser.setHeader(QiniuStorage.getUrl(authUser.getHeader()));
+        }
+        mv.addObject("authUser", authUser);
+        return mv;
+    }
+
+    /**
+     * 5 保存新的信息
+     */
+    @RequestMapping("/saveInfo")
+    @ResponseBody
+    public String saveInfo(AuthUser authUser, @RequestParam MultipartFile pictureImg) {
+        try {
+            authUser.setId(SessionContext.getUserId());
+            if (null != pictureImg && pictureImg.getBytes().length > 0) {
+                /**上传新的头像*/
+                String key = QiniuStorage.uploadImage(pictureImg.getBytes());
+                authUser.setHeader(key);
+            }
+            /**入库，那个字段有值就更新那个字段*/
+            authUserService.updateSelectivity(authUser);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new JsonView().toString();
+    }
+
+    /**
+     * 6 密码,转发到修改页面
+     */
+    @RequestMapping("/passwd")
+    public ModelAndView passwd() {
+        ModelAndView mv = new ModelAndView("user/passwd");
+        mv.addObject("curNav", "passwd");
+        return mv;
+    }
+
+    /**
+     * 7 新的密码入库
+     */
+    @RequestMapping("/savePasswd")
+    @ResponseBody
+    public String savePasswd(String oldPassword, String password, String rePassword) {
+        AuthUser currentUser = authUserService.getById(SessionContext.getUserId());
+        if (null == currentUser) {
+            return JsonView.render(1, "用户不存在！");
+        }
+        oldPassword = EncryptUtil.encodedByMD5(oldPassword.trim());
+        if (!oldPassword.equals(currentUser.getPassword())) {
+            return JsonView.render(1, "旧密码不正确！");
+        }
+        if (StringUtils.isEmpty(password.trim())) {
+            return JsonView.render(1, "新密码不能为空！");
+        }
+        if (!password.trim().equals(rePassword.trim())) {
+            return JsonView.render(1, "新密码与重复密码不一致！");
+        }
+        /**新的密码加密入库*/
+        currentUser.setPassword(EncryptUtil.encodedByMD5(password));
+        authUserService.updateSelectivity(currentUser);
+        return new JsonView().toString();
+    }
+
+    /**
+     * 8 问答，页面bug
+     */
+    //todo 无法显示
+    @RequestMapping("/qa")
+    public ModelAndView qa(TailPage<CourseComment> page) {
+        ModelAndView mv = new ModelAndView("user/qa");
+        mv.addObject("curNav", "qa");
+
+        CourseComment queryEntity = new CourseComment();
+        queryEntity.setUsername(SessionContext.getUsername());
+        page = courseCommentService.queryMyQAItemsPage(queryEntity, page);
+        /**page在页面为何会为空？？？*/
+        mv.addObject("page", page);
+
+        return mv;
+    }
+
 }

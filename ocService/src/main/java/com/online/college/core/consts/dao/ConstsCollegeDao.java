@@ -10,17 +10,17 @@ public interface ConstsCollegeDao {
 	/**
 	*根据id获取
 	**/
-	public ConstsCollege getById(Long id);
+	 ConstsCollege getById(Long id);
 	
 	/**
 	 * 根据code获取
 	 */
-	public ConstsCollege getByCode(String code);
+	 ConstsCollege getByCode(String code);
 
 	/**
 	*获取所有
 	**/
-	public List<ConstsCollege> queryAll(ConstsCollege queryEntity);
+	 List<ConstsCollege> queryAll(ConstsCollege queryEntity);
 
 	/**
 	*获取总数量

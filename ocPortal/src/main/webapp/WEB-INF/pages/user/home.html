@@ -26,6 +26,7 @@
 					<#list page.items as item>
 					<div class="comment clearfix">
 						<div class="comment-header">
+							<!--加载头像-->
 							<#if item.header?? && item.header != ''>
 							<img class="lecturer-uimg" src="${item.header!}">
 							<#else>
@@ -53,6 +54,7 @@
 					</#list>
 					</#if>
 					<#include "../common/tailPage2.html">
+	<!--分页2个人动态的展示-->
 				</form>
 			</div>
 		</div>

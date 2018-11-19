@@ -19,11 +19,11 @@
 		
 		
 		<!--  1 默认的注解映射的支持,不是显示的通过注解扫描的
-		 controller,service都会扫描，？？？？？？？-->
+		 controller,service都会扫描，是的-->
 		<context:annotation-config />
 		<context:component-scan base-package="com.online.college"/>  
     	
-    	<!--  2 大量的ajax请求，针对 Responsebody 转码，utf的编码和解码 -->
+    	<!--  2 大量的ajax请求，针对 Responsebody 转码，utf的编码和解码,返回json串 -->
     	<mvc:annotation-driven>
 			<mvc:message-converters register-defaults="true">
 				<bean class="com.online.college.common.web.UTF8HttpMessageConverter" />
@@ -44,7 +44,7 @@
 				</list>
 			</property>
 		</bean>
-		
+		<!--4 连接池-->
 	    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		    <property name="driverClass" value="${datasource.driverClassName}" />
 		    <property name="jdbcUrl" value="${datasource.url}" />
@@ -58,7 +58,7 @@
 		    <property name="maxStatements" value="${c3p0.maxStatements}" />
 		    <property name="autoCommitOnClose" value="${c3p0.autoCommitOnClose}" />
 	    </bean>
-	    <!--自行sql的回话-->
+	    <!--5 执行sql的一次回话-->
 	    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		    <property name="configLocation" value="classpath:mybatis-config.xml" />  
 		    <property name="dataSource" ref="dataSource" />
@@ -70,18 +70,18 @@
 		<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"> 
 		  <constructor-arg index="0" ref="sqlSessionFactory" />  
 		</bean>
-		<!-- 5 扫描mapper接口,寻找dao下面的所有的接口-->
+		<!-- 6 扫描mapper接口,寻找dao下面的所有的接口-->
 		<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 			<property name="basePackage" value="com.**.dao" />
 		</bean>
 		
 				
-		<!--  6 配置事务管理器 -->
+		<!--  7 配置事务管理器，保证完整性要么全部成功 -->
 		<bean id="transactionManager"
 			class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 			<property name="dataSource" ref="dataSource" />
 		</bean>
-		<!--tx所有的拦截-->
+		<!--8 tx所有的拦截，xx*开头的都会被拦截-->
 		<tx:advice id="txAdvice" transaction-manager="transactionManager">
 			<tx:attributes>
 				<tx:method name="do*" propagation="REQUIRED" />
@@ -106,7 +106,7 @@
 	    
 	    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 		 
-		<!-- 引入shiro -->
+		<!-- 9 引入shiro -->
         <import resource="shiro.xml" />
 		 
 </beans>

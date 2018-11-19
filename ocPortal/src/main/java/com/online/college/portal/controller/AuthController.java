@@ -49,7 +49,7 @@ public class AuthController {
     }
 
     /**
-     * 2 实现注册
+     * 2 实现ajax注册
      */
     @RequestMapping(value = "/doRegister")
     @ResponseBody
@@ -115,13 +115,18 @@ public class AuthController {
             if (rememberMe != null && rememberMe == 1) {
                 token.setRememberMe(true);
             }
-            currentUser.login(token);//shiro：不抛出异常，登陆成功
+            /**shiro：不抛出异常，登陆成功*/
+            currentUser.login(token);
             return new JsonView().toString();
-        } catch (AuthenticationException e) { //登录失败
+        } catch (AuthenticationException e) {
+            /**登录失败*/
             return JsonView.render(1, "用户名或密码不正确");
         }
     }
 
+    /**
+     * 4 正常的登录
+     */
     @RequestMapping(value = "/doLogin")
     public ModelAndView doLogin(AuthUser user, String identiryCode, HttpServletRequest request) {
 
@@ -139,9 +144,11 @@ public class AuthController {
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), EncryptUtil.encodedByMD5(user.getPassword()));
         try {
             Subject currentUser = SecurityUtils.getSubject();
-            currentUser.login(token);//shiro实现登录
+            /**shiro实现登录*/
+            currentUser.login(token);
             return new ModelAndView("redirect:/user/home.html");
-        } catch (AuthenticationException e) { //登录失败
+        } catch (AuthenticationException e) {
+            /**登录失败*/
             ModelAndView mv = new ModelAndView("auth/login");
             mv.addObject("errcode", 2);
             return mv;
@@ -149,7 +156,7 @@ public class AuthController {
     }
 
     /**
-     * 4 登出，调用shiro的logout方法，重定向到首页
+     * 5 登出，调用shiro的logout方法，重定向到首页
      */
     @RequestMapping(value = "/logout")
     public ModelAndView logout(HttpServletRequest request) {

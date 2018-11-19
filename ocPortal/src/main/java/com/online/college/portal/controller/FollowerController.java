@@ -20,52 +20,56 @@ import com.online.college.core.user.service.IUserFollowsService;
 @Controller
 @RequestMapping("follow")
 public class FollowerController {
-	
-	@Autowired
-	private IUserFollowsService userFollowsService;
-	
-	@RequestMapping(value = "/doFollow")
-	@ResponseBody
-	public String doFollow(Long followId){
-		//获取当前用户
-		Long curUserId = SessionContext.getUserId(); 
-		UserFollows userFollows = new UserFollows();
-		
-		userFollows.setUserId(curUserId);
-		userFollows.setFollowId(followId);
-		List<UserFollows> list = userFollowsService.queryAll(userFollows);
-		
-		if(CollectionUtils.isNotEmpty(list)){
-			userFollowsService.delete(list.get(0));
-			return new JsonView(0).toString();
-		}else{
-			userFollows.setCreateTime(new Date());
-			userFollowsService.createSelectivity(userFollows);
-			return new JsonView(1).toString();//已经关注
-		}
-	}
-	
-	/**
-	 * 是否已经关注
-	 */
-	@RequestMapping(value = "/isFollow")
-	@ResponseBody
-	public String isFollow(Long followId){
-		//获取当前用户
-		Long curUserId = SessionContext.getUserId(); 
-		UserFollows userFollows = new UserFollows();
-		
-		userFollows.setUserId(curUserId);
-		userFollows.setFollowId(followId);
-		List<UserFollows> list = userFollowsService.queryAll(userFollows);
-		
-		if(CollectionUtils.isNotEmpty(list)){//已经关注
-			return new JsonView(1).toString();
-		}else{
-			return new JsonView(0).toString();
-		}
-	}
-	
+
+    @Autowired
+    private IUserFollowsService userFollowsService;
+
+    /**
+     * 1 收藏
+     */
+    @RequestMapping(value = "/doFollow")
+    @ResponseBody
+    public String doFollow(Long followId) {
+        //获取当前用户
+        Long curUserId = SessionContext.getUserId();
+        UserFollows userFollows = new UserFollows();
+
+        userFollows.setUserId(curUserId);
+        userFollows.setFollowId(followId);
+        List<UserFollows> list = userFollowsService.queryAll(userFollows);
+        /**收藏后的再次点击就是取消*/
+        if (CollectionUtils.isNotEmpty(list)) {
+            userFollowsService.delete(list.get(0));
+            return new JsonView(0).toString();
+        } else {
+            userFollows.setCreateTime(new Date());
+            userFollowsService.createSelectivity(userFollows);
+            /**已经关注*/
+            return new JsonView(1).toString();
+        }
+    }
+
+    /**
+     * 2 是否已经关注
+     */
+    @RequestMapping(value = "/isFollow")
+    @ResponseBody
+    public String isFollow(Long followId) {
+        //获取当前用户
+        Long curUserId = SessionContext.getUserId();
+        UserFollows userFollows = new UserFollows();
+
+        userFollows.setUserId(curUserId);
+        userFollows.setFollowId(followId);
+        List<UserFollows> list = userFollowsService.queryAll(userFollows);
+        /**已经关注*/
+        if (CollectionUtils.isNotEmpty(list)) {
+            return new JsonView(1).toString();
+        } else {
+            return new JsonView(0).toString();
+        }
+    }
+
 }
 
 

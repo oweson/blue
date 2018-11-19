@@ -8,56 +8,55 @@ import com.online.college.core.consts.domain.ConstsClassify;
 
 public interface IConstsClassifyService {
 
-	/**
-	*根据id获取
-	**/
-	public ConstsClassify getById(Long id);
+    /**
+     * 1 根据id获取
+     **/
+    ConstsClassify getById(Long id);
 
-	/**
-	*获取所有
-	**/
-	public List<ConstsClassify> queryAll();
-	
-	/**
-	 * 根据code获取
-	 */
-	public ConstsClassify getByCode(String code);
-	
-	/**
-	*根据条件动态获取
-	**/
-	public List<ConstsClassify> queryByCondition(ConstsClassify queryEntity);
-	
-	/**
-	*分页获取
-	**/
-	public TailPage<ConstsClassify> queryPage(ConstsClassify queryEntity, TailPage<ConstsClassify> page);
+    /**
+     * 2 获取所有
+     **/
+    List<ConstsClassify> queryAll();
 
-	/**
-	*创建
-	**/
-	public void create(ConstsClassify entity);
-	
-	/**
-	 * 创建
-	 */
-	public void createSelectivity(ConstsClassify entity);
+    /**
+     * 3 根据code获取
+     */
+    ConstsClassify getByCode(String code);
 
-	/**
-	*根据id 进行可选性更新
-	**/
-	public void updateSelectivity(ConstsClassify entity);
+    /**
+     * 4 根据条件动态获取
+     **/
+    List<ConstsClassify> queryByCondition(ConstsClassify queryEntity);
 
-	/**
-	*物理删除
-	**/
-	public void delete(ConstsClassify entity);
+    /**
+     * 5 分页获取
+     **/
+    TailPage<ConstsClassify> queryPage(ConstsClassify queryEntity, TailPage<ConstsClassify> page);
 
-	/**
-	*逻辑删除
-	**/
-	public void deleteLogic(ConstsClassify entity);
+    /**
+     * 6 创建
+     **/
+    void create(ConstsClassify entity);
 
+    /**
+     * 7 创建
+     */
+    void createSelectivity(ConstsClassify entity);
+
+    /**
+     * 8 根据id 进行可选性更新
+     **/
+    void updateSelectivity(ConstsClassify entity);
+
+    /**
+     * 9 物理删除
+     **/
+    void delete(ConstsClassify entity);
+
+    /**
+     * 10 逻辑删除
+     **/
+    void deleteLogic(ConstsClassify entity);
 
 
 }

@@ -1,52 +1,52 @@
 package com.online.college.core.user.service;
 
 import java.util.List;
+
 import com.online.college.common.page.TailPage;
 import com.online.college.core.user.domain.UserMessage;
 
 
 public interface IUserMessageService {
 
-	/**
-	*根据id获取
-	**/
-	public UserMessage getById(Long id);
+    /**
+     * 1 根据id获取
+     **/
+    UserMessage getById(Long id);
 
-	/**
-	*获取所有
-	**/
-	public List<UserMessage> queryAll(UserMessage queryEntity);
+    /**
+     * 2 获取所有
+     **/
+    List<UserMessage> queryAll(UserMessage queryEntity);
 
-	/**
-	*分页获取
-	**/
-	public TailPage<UserMessage> queryPage(UserMessage queryEntity, TailPage<UserMessage> page);
+    /**
+     * 3 分页获取
+     **/
+    TailPage<UserMessage> queryPage(UserMessage queryEntity, TailPage<UserMessage> page);
 
-	/**
-	*创建
-	**/
-	public void create(UserMessage entity);
+    /**
+     * 4 创建
+     **/
+    void create(UserMessage entity);
 
-	/**
-	*根据id更新
-	**/
-	public void update(UserMessage entity);
+    /**
+     * 5 根据id更新
+     **/
+    void update(UserMessage entity);
 
-	/**
-	*根据id 进行可选性更新
-	**/
-	public void updateSelectivity(UserMessage entity);
+    /**
+     * 6 根据id 进行可选性更新
+     **/
+    void updateSelectivity(UserMessage entity);
 
-	/**
-	*物理删除
-	**/
-	public void delete(UserMessage entity);
+    /**
+     * 7 物理删除
+     **/
+    void delete(UserMessage entity);
 
-	/**
-	*逻辑删除
-	**/
-	public void deleteLogic(UserMessage entity);
-
+    /**
+     * 8逻辑删除
+     **/
+    void deleteLogic(UserMessage entity);
 
 
 }

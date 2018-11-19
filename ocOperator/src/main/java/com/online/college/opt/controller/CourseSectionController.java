@@ -95,7 +95,7 @@ public class CourseSectionController{
 	}
 	
 	/**
-	 * 导入excel
+	 * 导入excel，poi和图片上传原理相同
 	 */
 	@RequestMapping("/doImport")
 	@ResponseBody

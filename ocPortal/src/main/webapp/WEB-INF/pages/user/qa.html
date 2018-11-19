@@ -22,6 +22,7 @@
 				<div class="split-line" style="margin: 20px 0px;"></div>
 				
 				<form id="queryPageForm" action="">
+					<!--下面为何会为空？？？-->
 				<#if (page.items)??>
 				<#list page.items as item>
 				<div class="comment clearfix">
@@ -79,7 +80,9 @@
 		            </div>
 	            
 		            <div class="modal-body">
+						<!--评论的提交-->
 		               	<form id="commentForm" class="form-horizontal" action="${s.base}/courseComment/doComment.html" method="post" style="padding: 0px 20px;">
+							<!--引用，正对那个评论回答的-->
 							<input type="hidden" id="refId" name="refId" value=""/>
 							<div class="form-group">
 								<textarea id="qaContent" name="content" rows="" cols="80" maxlength="200"></textarea>

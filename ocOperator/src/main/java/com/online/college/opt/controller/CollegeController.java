@@ -40,11 +40,13 @@ public class CollegeController {
         if (StringUtils.isNotEmpty(queryEntity.getName())) {
             queryEntity.setName(queryEntity.getName().trim());
         } else {
+            /**这个字段不参与查询，就是全部的显示了*/
             queryEntity.setName(null);
         }
         /**查询分页信息，放入request*/
         page = entityService.queryPage(queryEntity, page);
         mv.addObject("page", page);
+        /**把搜索的条件回显是*/
         mv.addObject("queryEntity", queryEntity);
         return mv;
     }
@@ -67,16 +69,21 @@ public class CollegeController {
     @ResponseBody
     public String doMerge(ConstsCollege entity) {
         if (entity.getId() == null) {
+            /**添加*/
             ConstsCollege tmpEntity = entityService.getByCode(entity.getCode());
+            /**验证编码唯一，大学的代码不允许重复*/
             if (tmpEntity != null) {
                 return JsonView.render(1, "此编码已存在");
             }
+            /**不存在，新增的入库*/
             entityService.createSelectivity(entity);
         } else {
+            /**前写死了，没必要了*/
             ConstsCollege tmpEntity = entityService.getByCode(entity.getCode());
             if (tmpEntity != null && !tmpEntity.getId().equals(entity.getId())) {
                 return JsonView.render(1, "此编码已存在");
             }
+            /**更新的入库*/
             entityService.updateSelectivity(entity);
         }
         return new JsonView().toString();
@@ -88,6 +95,7 @@ public class CollegeController {
     @RequestMapping(value = "/deleteLogic")
     @ResponseBody
     public String deleteLogic(ConstsCollege entity) {
+        /**del设置为1*/
         entityService.deleteLogic(entity);
         return new JsonView().toString();
     }

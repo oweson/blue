@@ -9,7 +9,7 @@ import com.online.college.common.web.shiro.freemarker.ShiroTags;
 import freemarker.template.TemplateException;
 
 /**
- * shiro freemarker 整合
+ * shiro freemarker 整合，让freemarker支持shiro
  */
 public class ShiroFreeMarkerConfigurer extends FreeMarkerConfigurer {
 	@Override

@@ -1,3 +1,4 @@
+/*
 package com.online.college.core.auth.dao;
 
 import com.online.college.core.auth.domain.AuthUser;
@@ -6,11 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.*;
 
-/**
- * the class is create by @Author:oweson
- *
- * @Date£º2018/10/13 0013 11:16
- */
+
 public class AuthUserDaoTest extends BaseClass{
     @Autowired
     AuthUserDao authUserDao;
@@ -61,4 +58,4 @@ public class AuthUserDaoTest extends BaseClass{
     @Test
     public void deleteLogic() {
     }
-}
+}*/

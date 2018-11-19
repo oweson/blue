@@ -25,6 +25,7 @@
 					<a class="block-heading f-14" data-toggle="collapse">网校管理</a>
 					<div class="block-body collapse in">
 						<p>
+							<!--回显刚的搜索信息-->
 							<input name="name" type="text" value="${(queryEntity.name)!}" class="search-text" placeholder="请输入名称" />
 						</p>
 						<p>
@@ -47,11 +48,14 @@
 									</tr>
 								</thead>
 								<tbody>
+								<!-- 不为空就遍历
+								-->
 									<#if (page.items)??>
 									<#list page.items as item>
 									<tr class="success">
+										<!--感叹号不存在就默认值-->
 										<td>${item.name!}</td>
-										<td>${item.code!}</td>
+										<td>${item.code!"nocode"}</td>
 										<td>
 											<a class="link-a" href="javascript:void(0)" onclick="toEdit(${item.id})">修改</a>
 											<a class="link-a" href="javascript:void(0)" onclick="doDelete(${item.id})">删除</a>

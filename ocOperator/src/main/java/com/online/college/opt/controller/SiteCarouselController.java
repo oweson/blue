@@ -52,7 +52,7 @@ public class SiteCarouselController {
     public ModelAndView toMerge(ConstsSiteCarousel entity) {
         ModelAndView mv = new ModelAndView("cms/carousel/merge");
         mv.addObject("curNav", "carousel");
-/**修改信息要传入的。id不能为因为要知道修改哪一个！！！*/
+         /**修改信息要传入的。id不能为因为要知道修改哪一个！！！*/
         if (entity.getId() != null) {
             entity = entityService.getById(entity.getId());
             if (null != entity && StringUtils.isNotEmpty(entity.getPicture())) {

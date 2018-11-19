@@ -1,6 +1,7 @@
 package com.online.college.core.consts.dao;
 
 import java.util.List;
+
 import com.online.college.common.page.TailPage;
 import com.online.college.core.consts.domain.ConstsClassify;
 import com.online.college.core.consts.domain.ConstsCollege;
@@ -8,68 +9,68 @@ import com.online.college.core.consts.domain.ConstsCollege;
 
 public interface ConstsClassifyDao {
 
-	/**
-	*根据id获取
-	**/
-	public ConstsClassify getById(Long id);
-	
-	/**
-	 * 根据code获取
-	 */
-	public ConstsCollege getByCode(String code);
+    /**
+     * 1 根据id获取
+     **/
+    ConstsClassify getById(Long id);
 
-	/**
-	*获取所有
-	**/
-	public List<ConstsClassify> queryAll();
-	
-	/**
-	 * 根据条件动态获取
-	 * @param queryEntity
-	 * @return
-	 */
-	public List<ConstsClassify> queryByCondition(ConstsClassify queryEntity);
+    /**
+     * 2 根据code获取
+     */
+    ConstsCollege getByCode(String code);
 
-	/**
-	*获取总数量
-	**/
-	public Integer getTotalItemsCount(ConstsClassify queryEntity);
+    /**
+     * 3 获取所有
+     **/
+    List<ConstsClassify> queryAll();
 
-	/**
-	*分页获取
-	**/
-	public List<ConstsClassify> queryPage(ConstsClassify queryEntity, TailPage<ConstsClassify> page);
+    /**
+     * 4 根据条件动态获取
+     *
+     * @param queryEntity
+     * @return
+     */
+    List<ConstsClassify> queryByCondition(ConstsClassify queryEntity);
 
-	/**
-	*创建新记录
-	**/
-	public void create(ConstsClassify entity);
-	
-	/**
-	 * 创建新记录
-	 */
-	public void createSelectivity(ConstsClassify entity);
+    /**
+     * 5 获取总数量
+     **/
+    Integer getTotalItemsCount(ConstsClassify queryEntity);
 
-	/**
-	*根据id更新
-	**/
-	public void update(ConstsClassify entity);
+    /**
+     * 6 分页获取
+     **/
+    List<ConstsClassify> queryPage(ConstsClassify queryEntity, TailPage<ConstsClassify> page);
 
-	/**
-	*根据id选择性更新自动
-	**/
-	public void updateSelectivity(ConstsClassify entity);
+    /**
+     * 7 创建新记录
+     **/
+    void create(ConstsClassify entity);
 
-	/**
-	*物理删除
-	**/
-	public void delete(ConstsClassify entity);
+    /**
+     * 8 创建新记录
+     */
+    void createSelectivity(ConstsClassify entity);
 
-	/**
-	*逻辑删除
-	**/
-	public void deleteLogic(ConstsClassify entity);
+    /**
+     * 9 根据id更新
+     **/
+    void update(ConstsClassify entity);
 
+    /**
+     * 10 根据id选择性更新自动
+     **/
+    void updateSelectivity(ConstsClassify entity);
+
+    /**
+     * 11 物理删除
+     **/
+    void delete(ConstsClassify entity);
+
+    /**
+     * 12 逻辑删除
+     **/
+    void deleteLogic(ConstsClassify entity);
 
 
 }

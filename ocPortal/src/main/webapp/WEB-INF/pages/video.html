@@ -14,6 +14,7 @@
 		<#include "./common/header.html">
 		<div class="f-main clearfix">
 			<div class="main-course-left">
+				<!--视频播放页面h5-->
 					<div class="course-info">
 						<div class="course-title" style="font-size: 24px;">${(courseSection.name)!}</div>
 						
@@ -43,13 +44,17 @@
 						<span id="commentTip" style="margin-left: 10px;color:#777;">长度小于200</span>
 					</div>
 					<form id="commentForm" action="${s.base}/courseComment/doComment.html" method="post"  style="margin: 5px 0px;">
+						<!--评论的内容和问答有区别-->
 						<input type="hidden" id="commentType" name="type" value="0"/>
+						<!--评论的那一节-->
 						<input type="hidden" name="sectionId" value="${(courseSection.id)!}"/>
+						<!--评论的哪一个课程-->
 						<input type="hidden" name="courseId" value="${(courseSection.courseId)!}"/>
-						
+						<!--防止恶意的用户，对评论的长度进行限制-->
 						<textarea id="content" name="content" rows="" cols="100"></textarea>
 						<div>
 							<input id="indeityCode" name="indeityCode"  type="text" placeholder="请输入验证码">
+							<!--重新加载的事件-->
 							<img  onclick="reloadIndityImg();" id="indeityImg"  src="${s.base}/tools/identiry/code.html" style="width:80px;height:26px;margin-left:10px;margin-top:-3px;"/>
 						</div>
 					</form>
@@ -171,14 +176,16 @@
 				var indeityCode = $('#indeityCode').val();
 				if($.trim(indeityCode).length ==0 ){
 					$('#commentTip').css('color','red').html('验证码输入有误');
+					/*拒绝往下提交*/
 					return;
 				}
-				
+				/*内容的校验*/
 				var content = $('#content').val();
 				if($.trim(content).length > 200 || $.trim(content).length == 0){
 					$('#commentTip').css('color','red').html('评论内容长度请 &gt; 0 , &lt; 200');
 					return;
 				}
+				/*ajaxt提交评论*/
 				
 				$('#commentForm').ajaxSubmit({
 					datatype : 'json',
@@ -186,10 +193,12 @@
 						var resp = $.parseJSON(resp);
 						if (resp.errcode == 0) {
 							$('#commentTip').css('color','green').html('评论成功');
-							//自动刷新
+							//自动刷新todo提交后看出效果
+
 							
 						} else if(resp.errcode == 1) {
 							$('#commentTip').css('color','red').html('评论失败');
+							/*服务端验证的*/
 						}else if(resp.errcode == 2) {
 							$('#commentTip').css('color','red').html('验证码输入有误');
 						}else if(resp.errcode == 3) {

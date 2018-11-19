@@ -61,7 +61,7 @@ j具体的定义在src下面的app-servlet.xml文件中，立刻启动,-->
         <url-pattern>*.html</url-pattern>
     </servlet-mapping>
 
-    <!-- 5  ShiroFilter start -->
+    <!-- 5  ShiroFilter start，所有的都拦截 -->
     <filter>
         <filter-name>shiroFilter</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -73,6 +73,7 @@ j具体的定义在src下面的app-servlet.xml文件中，立刻启动,-->
     <filter-mapping>
         <filter-name>shiroFilter</filter-name>
         <url-pattern>/*</url-pattern>
+        <!--啥意思？？？请求，转发-->
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>

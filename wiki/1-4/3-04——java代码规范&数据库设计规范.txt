@@ -9,7 +9,8 @@ i）领域模型结尾： DO / DTO / VO  等
 
 i）枚举以Enum结尾；
 
-i）接口以I开头，抽象类命名使用 Abstract或Base 开头；异常类命名使用 Exception结尾；测试类命名以它要测试的类的名称开始，以 Test结尾
+i）接口以I开头，抽象类命名使用 Abstract或Base 开头；异常类命名使用 Exception结尾；
+    测试类命名以它要测试的类的名称开始，以 Test结尾
 
 i）Controller 类：必须以Controller结尾；
      Service：接口以I开头 ，Service结尾；实现以ServiceImpl结尾；
@@ -33,7 +34,7 @@ i）类注释：说明类的用途；
 
 i）好的命名、代码结构是自解释的。注释力求精简准确、表达到位。
 
-i）Map的key、value注意点：
+i）Map的key、value注意点：注意treemap的key不可为空，value可以
      集合类                            Key                             Value                       说明 
      Hashtable                      不允许为 null           不允许为 null         线程安全 
      ConcurrentHashMap     不允许为 null           不允许为 null        线程局部安全 
@@ -49,15 +50,15 @@ i）设计模式类，请用设计模式名称结尾，比如 WindowSingleton
 
 i）避免中文拼音，比如 dengluming ，可以用 username
 i）主键id自增
-i）不设置外键
-i）所有字段非空、并且有默认值
+i）不设置外键？？？因为互联网项目，通过代码控制，可以加索引
+i）所有字段非空、并且有默认值！！！
 i）所有字段必须有注释，表必须有注释；
 i）字段小写，单词间用 _ ，比如 college_name ；对应java 的domain就是 collegeName
 i）表明以 t_开头，并且安装模块区分；比如 课程模块：以 t_course 开头；
 
 i）视图以 v_ 开头，函数以 fn_ 开头，等；
 
-i）sql语句中，sql关键字要大写，如 SELECT，UPDATE，FROM，WHERE，ORDER BY
+i）sql语句中，sql关键字要大写，如 SELECT，UPDATE，FROM，WHERE，ORDER BY！！！
 
 i）注意sql的美化，（通常sql 关键字前换行）
      如：

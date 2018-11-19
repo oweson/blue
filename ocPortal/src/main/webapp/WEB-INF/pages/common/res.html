@@ -18,7 +18,7 @@ CONTEXT_PATH = '${s.base}';
 <@shiro.guest>
 SHIRO_LOGIN = false;
 </@shiro.guest>
-
+/*判断是否登录，下面的是全局变量，登录就设置true,关注的时候和收藏的时候就会ajax请求*/
 <@shiro.user>
 SHIRO_LOGIN = true;//是否已经登录 
 </@shiro.user>

@@ -9,30 +9,34 @@
 			<a href="http://m.ioswift.org" target="_blank" class="header-nav-item" style="width:100px;">M站</a>
 			<span>听雨无忧【oweson】</span>
 		</nav>
-		
+		<!-- 1 访客用户-->
 		<nav class="header-nav" style="float:right">
 			<@shiro.guest>
 			<a href="#myModal" class="header-nav-item"  data-toggle="modal" onclick="login();"  style="margin-right:0px;font-size:14px;">登录</a>
 			<a href="#myModal" class="header-nav-item" data-toggle="modal" onclick="registe();"  style="margin-left:0px;font-size:14px;">注册</a>
 			</@shiro.guest>
-			
+			<!-- 2 登录用户，显示用户的信息-->
 			<@shiro.user>
 			<a href="${s.base}/user/home.html" class="header-nav-item"  style="margin-left:0px;width:40px;height:40px;" id="userdetail">
+				<!--用户头像显示-->
 	        	<img id="headerUserHeader" alt="" src='<@shiro.principal property="header"/>' style="width: 35px;height: 35px;border-radius:50%;">
 	        </a>
 	       </@shiro.user>
 		</nav>
 		
 		<@shiro.user>
-		<!-- 登录之后显示用户的基本信息-start -->
+		<!--  3 登录之后显示用户的基本信息-start -->
 		<div id="userdetailHtml" style="display: none;">
 			<div style="padding:10px;">
 				<div style="margin-top:10px;">
+					<!--principal就是用户的信息-->
 					<span style="font-size: 16px;">用户名：<@shiro.principal property="username"/></span>
 				</div>
 				
 				<div style="margin-top:20px;">
+					<!--课程的学习进度ajax请求-->
 					<a id="curCourseA" class="link-a" target="_blank" href="">
+						<!--链接为何是空的，对应138G-->
 					<div id="curCourseSpan" class="ellipsis" style="font-size: 16px;width:220px;height:30px;overflow:hidden;font-weight:bold;" title="" ></div>
 					</a>
 				</div>
@@ -55,7 +59,7 @@
 </div>
 
 <@shiro.guest>
-<!-- 用户登录注册modal -->
+<!-- 2 访客显示用户登录注册modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"  style="position:fixed; top:30%;">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -143,7 +147,7 @@
         });
 		
 		if(SHIRO_LOGIN){
-			//获取当前用户学习进度
+			//用户已经登录了,发送ajax请求，否则跳转登录页面，获取当前用户学习进度
 			$.ajax({
 				url:CONTEXT_PATH + '/course/getCurLeanInfo.html',
 			    type:'POST',
@@ -152,6 +156,7 @@
 			    	if(resp.errcode == 0 && resp.data){
 		    			var learnUrl = CONTEXT_PATH+"/course/learn/"+resp.data.curCourse.id+".html";
 			    		var learnTitle = resp.data.curCourse.name;
+			    		<!--属性和title改掉-->
 			    		$('#curCourseA').attr('href',learnUrl)
 			    		$('#curCourseSpan').attr('title',learnTitle).html(learnTitle);
 			    		

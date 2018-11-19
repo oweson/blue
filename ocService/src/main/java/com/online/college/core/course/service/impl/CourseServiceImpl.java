@@ -22,7 +22,7 @@ public class CourseServiceImpl implements ICourseService {
     private CourseDao entityDao;
 
     /**
-     * 有图片不为空就设置到课程上面
+     * 1 有图片不为空就设置到课程上面
      */
     private void prepareCoursePicture(Course course) {
         /**课程不为空并且有图片及取出七牛云的图片设置到课程*/
@@ -31,13 +31,20 @@ public class CourseServiceImpl implements ICourseService {
         }
     }
 
+    /**
+     * 2 查单个课程
+     */
     @Override
     public Course getById(Long id) {
         Course course = entityDao.getById(id);
+        /**处理图片*/
         prepareCoursePicture(course);
         return course;
     }
 
+    /**
+     * 3 课程的上下架
+     */
     @Override
     public List<Course> queryList(CourseQueryDto queryEntity) {
         /**是否上架*/
@@ -47,6 +54,9 @@ public class CourseServiceImpl implements ICourseService {
         return entityDao.queryList(queryEntity);
     }
 
+    /**
+     * 4 分页显示和查寻
+     */
     @Override
     public TailPage<Course> queryPage(Course queryEntity, TailPage<Course> page) {
         /**获得课程的总数*/
@@ -66,23 +76,33 @@ public class CourseServiceImpl implements ICourseService {
         return page;
     }
 
+    /**
+     * 5 创建
+     */
     @Override
     public void createSelectivity(Course entity) {
         entityDao.createSelectivity(entity);
     }
 
+    /**
+     * 6 更新
+     */
     @Override
     public void updateSelectivity(Course entity) {
         entityDao.updateSelectivity(entity);
     }
 
-    //物理删除
+    /**
+     * 7 物理删除
+     */
     @Override
     public void delete(Course entity) {
         entityDao.delete(entity);
     }
 
-    //逻辑删除
+    /**
+     * 8 逻辑删除
+     */
     @Override
     public void deleteLogic(Course entity) {
         entityDao.deleteLogic(entity);

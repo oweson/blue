@@ -32,10 +32,11 @@ public class PortalBusinessImpl implements IPortalBusiness {
     private ICourseService courseService;
 
     /**
-     * 1 获取所有，包括一级分类&二级分类
+     * 1 获取所有，包括一级分类&二级分类,二级分类已经赊账到了一级分类上面
      */
     public List<ConstsClassifyVO> queryAllClassify() {
         List<ConstsClassifyVO> resultList = new ArrayList<ConstsClassifyVO>();
+        /**values() 方法用于返回此映射中包含的值的Collection视图。*/
         for (ConstsClassifyVO vo : this.queryAllClassifyMap().values()) {
             /**一级分类存放*/
             resultList.add(vo);
